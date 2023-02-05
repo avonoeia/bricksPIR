@@ -1,0 +1,74 @@
+nav {
+    background: linear-gradient(195deg, rgb(66, 66, 74), rgb(25, 25, 25));
+    width: 250px;
+    position: fixed;
+    box-shadow: rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem;
+    color: white; 
+    border-radius: 10px;
+    height: calc(-2rem + 100vh);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.logo {
+    font-family: 'Fredoka One';
+    font-size: 2.1rem;
+    padding: 30px 0px 10px 0px;
+}
+
+.top {
+    height: 100%;
+}
+
+.bottom {
+    height: 20%;
+    padding-bottom: 20px;
+}
+
+nav > .top > hr, .navbar-break {
+    flex-shrink: 0;
+    border-width: 0px 0px medium;
+    border-style: solid solid none;
+    border-color: rgba(0, 0, 0, 0.08) rgba(0, 0, 0, 0.08) currentcolor;
+    height: 0.0625rem;
+    margin: 1rem 0px;
+    opacity: 0.25;
+    background-color: transparent;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255), rgba(255, 255, 255, 0)) !important;
+    margin: 10px 0px;
+}
+
+nav > .top > ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: start;
+}
+
+.link-styling {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.nav-option {
+    padding: 14px 10px;
+    margin: 10px 16px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.nav-option:hover {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.selected {
+    background: linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232)) !important;
+    color: white;
+}
