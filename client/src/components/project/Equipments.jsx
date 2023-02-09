@@ -147,36 +147,38 @@ export default function Equipments({ project, setProject }) {
                         <>
                             <hr className="black-separator" style={{"margin": "40px 0px"}} />
 
-                            <div className="text-field-block" style={{"width": "100%"}}>
-                                <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>New Equipment</div>
-                            </div>
+                            <div className="input-fix-field-container">
+                                <div className="text-field-block" style={{"width": "100%"}}>
+                                    <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>New Equipment</div>
+                                </div>
 
-                            <div className="input-field-block" style={{"width": "30%"}}>
-                                <label htmlFor="equipment-id">ID</label>
-                                <input type="text" name="id" value={newEquipment.id} 
-                                    onChange={(event) => {
-                                    setNewEquipment((data) => ({
-                                    ...data,
-                                    [event.target.name]: event.target.value
-                                    }))
+                                <div className="input-field-block" style={{"width": "30%"}}>
+                                    <label htmlFor="equipment-id">ID</label>
+                                    <input type="text" name="id" value={newEquipment.id} 
+                                        onChange={(event) => {
+                                        setNewEquipment((data) => ({
+                                        ...data,
+                                        [event.target.name]: event.target.value
+                                        }))
+                                        }} 
+                                    />
+                                </div>
+
+                                <div className="input-field-block" style={{"width": "10%"}}>
+                                    <label htmlFor="material-unit">Category</label>
+                                    <input style={{"width": "80px"}} type="text" name="category" value={newEquipment.category} 
+                                        onChange={(event) => {
+                                        setNewEquipment((data) => ({
+                                        ...data,
+                                        [event.target.name]: event.target.value
+                                        }))
                                     }} 
-                                />
-                            </div>
+                                    />
+                                </div>
 
-                            <div className="input-field-block" style={{"width": "10%"}}>
-                                <label htmlFor="material-unit">Category</label>
-                                <input style={{"width": "80px"}} type="text" name="category" value={newEquipment.category} 
-                                    onChange={(event) => {
-                                    setNewEquipment((data) => ({
-                                    ...data,
-                                    [event.target.name]: event.target.value
-                                    }))
-                                }} 
-                                />
-                            </div>
-
-                            <div className="input-field-block" style={{"width": "10%"}}>
-                                <div className="tiny-button" style={{"lineHeight": "30px", "textAlign": "center", "marginTop": "43px"}} onClick={handleAdd}>Add</div>
+                                <div className="input-field-block" style={{"width": "10%"}}>
+                                    <div className="tiny-button input-fix-form-submit" style={{"lineHeight": "30px", "textAlign": "center", "marginTop": "43px"}} onClick={handleAdd}>Add</div>
+                                </div>
                             </div>
                         </>
                     ) : ""

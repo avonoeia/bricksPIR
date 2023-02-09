@@ -1,7 +1,7 @@
 import React from "react"
 
 export default function Equipment({ report, setReport}) {
-
+    console.log(report.equipments)
     return (
         <div className="container">
             <div className="blue-label">
@@ -30,12 +30,12 @@ export default function Equipment({ report, setReport}) {
                                                 checked={equipment.status == "working"} 
                                                 disabled={report.status === "approved"}
                                                 className="radio-input" 
-                                                name="status" 
+                                                name={`${equipment.id}-status`} 
                                                 value="working"
                                                 onChange={(event) => {
                                                     setReport(data => {
                                                         const newData = data.equipments
-                                                        const targetIdx = newData.findIndex(i => i.serial_no == equipment.serial_no)
+                                                        const targetIdx = newData.findIndex(i => i.id == equipment.id)
                                                         newData[targetIdx] = {
                                                             ...newData[targetIdx],
                                                             status: event.target.value
@@ -51,18 +51,19 @@ export default function Equipment({ report, setReport}) {
                                             /> Working 
                                             <input 
                                                 type="radio" 
-                                                checked={equipment.status == "non-working"} 
+                                                checked={equipment.status == "non-working"}
                                                 disabled={report.status === "approved"}
-                                                className="radio-input" 
-                                                name="status" 
-                                                value="non-working" 
+                                                className="radio-input"
+                                                name={`${equipment.id}-status`}
+                                                value="non-working"
                                                 onChange={(event) => {
                                                     setReport(data => {
                                                         const newData = data.equipments
-                                                        const targetIdx = newData.findIndex(i => i.serial_no == equipment.serial_no)
+                                                        const targetIdx = newData.findIndex(i => i.id == equipment.id)
                                                         newData[targetIdx] = {
                                                             ...newData[targetIdx],
-                                                            status: event.target.value
+                                                            status: event.target.value,
+                                                            hours: 0
                                                         }
                                                         return {
                                                             ...data,
@@ -77,12 +78,12 @@ export default function Equipment({ report, setReport}) {
                                         <td>
                                             <input 
                                                 type="number" 
-                                                value={equipment.hours} 
-                                                disabled={report.status === "approved"}
+                                                value={equipment.status != "non-working" ? equipment.hours : 0} 
+                                                disabled={report.status === "approved" || equipment.status == "non-working"}
                                                 onChange={(event) => {
                                                     setReport(data => {
                                                         const newData = data.equipments
-                                                        const targetIdx = newData.findIndex(i => i.serial_no == equipment.serial_no)
+                                                        const targetIdx = newData.findIndex(i => i.id == equipment.id)
                                                         newData[targetIdx] = {
                                                             ...newData[targetIdx],
                                                             hours: event.target.value

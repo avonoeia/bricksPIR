@@ -152,42 +152,48 @@ export default function Materials({ project, setProject }) {
                         { 
                             addStock.material && (
                                 <>
-                                    <div className="text-field-block" style={{"width": "15%"}}>
-                                        <div className="text-label">Unit</div>
-                                        <div className="text-field">{addStock.unit}</div>
+                                    <div className="input-fix-field-container">
+                                        <div className="text-field-block" style={{"width": "100%"}}>
+                                            <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>New Stock</div>
+                                        </div>
+                                        <div className="text-field-block" style={{"width": "15%"}}>
+                                            <div className="text-label">Unit</div>
+                                            <div className="text-field">{addStock.unit}</div>
+                                        </div>
+                                        <div className="input-field-block" style={{"width": "30%"}}>
+                                            <div className="text-label">Supplier</div>
+                                            <input type="text" 
+                                                className="input-field" 
+                                                style={{"width": "350px"}} 
+                                                name="supplier" 
+                                                value={addStock.supplier} 
+                                                onChange={(e) => setAddStock(data => ({
+                                                    ...data,
+                                                    supplier: e.target.value
+                                                }))} 
+                                            />
+                                        </div>
+                                        <div className="input-field-block" style={{"width": "10%"}}>
+                                            <div className="text-label">Amount</div>
+                                            <input type="number" 
+                                                className="input-field" 
+                                                style={{"width": "100px"}} 
+                                                name="usage" 
+                                                value={addStock.amount} 
+                                                onChange={(e) => setAddStock(data => ({
+                                                    ...data,
+                                                    amount: e.target.value
+                                                }))} 
+                                            />
+                                        </div>
+                                        <div className="tiny-button" 
+                                            style={{
+                                                "marginLeft": "20px",
+                                                "marginTop": "42px"
+                                            }}
+                                            onClick={handleAddStock}
+                                        >Add</div>
                                     </div>
-                                    <div className="input-field-block" style={{"width": "30%"}}>
-                                        <div className="text-label">Supplier</div>
-                                        <input type="text" 
-                                            className="input-field" 
-                                            style={{"width": "350px"}} 
-                                            name="supplier" 
-                                            value={addStock.supplier} 
-                                            onChange={(e) => setAddStock(data => ({
-                                                ...data,
-                                                supplier: e.target.value
-                                            }))} 
-                                        />
-                                    </div>
-                                    <div className="input-field-block" style={{"width": "10%"}}>
-                                        <div className="text-label">Amount</div>
-                                        <input type="number" 
-                                            className="input-field" 
-                                            style={{"width": "100px"}} 
-                                            name="usage" 
-                                            value={addStock.amount} 
-                                            onChange={(e) => setAddStock(data => ({
-                                                ...data,
-                                                amount: e.target.value
-                                            }))} 
-                                        />
-                                    </div>
-                                    <div className="tiny-button" 
-                                        style={{
-                                            "marginLeft": "20px",
-                                            "marginTop": "42px"
-                                        }}
-                                        onClick={handleAddStock}>Add</div>
                                 </>
                             )
                         }
@@ -289,36 +295,38 @@ export default function Materials({ project, setProject }) {
                         <>
                             <hr className="black-separator" />
 
-                            <div className="text-field-block" style={{"width": "100%"}}>
-                                <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>New Material</div>
-                            </div>
+                            <div className="input-fix-field-container">
+                                <div className="text-field-block" style={{"width": "100%"}}>
+                                    <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>New Material</div>
+                                </div>
 
-                            <div className="input-field-block" style={{"width": "30%"}}>
-                                <label htmlFor="material">Material Name</label>
-                                <input type="text" name="material" value={newMaterial.material} 
-                                    onChange={(event) => {
-                                    setNewMaterial((data) => ({
-                                    ...data,
-                                    [event.target.name]: event.target.value
-                                    }))
+                                <div className="input-field-block" style={{"width": "30%"}}>
+                                    <label htmlFor="material">Material Name</label>
+                                    <input type="text" name="material" value={newMaterial.material} 
+                                        onChange={(event) => {
+                                        setNewMaterial((data) => ({
+                                        ...data,
+                                        [event.target.name]: event.target.value
+                                        }))
+                                        }} 
+                                    />
+                                </div>
+
+                                <div className="input-field-block" style={{"width": "10%"}}>
+                                    <label htmlFor="material-unit">Unit</label>
+                                    <input style={{"width": "80px"}} type="text" name="unit" value={newMaterial.unit} 
+                                        onChange={(event) => {
+                                        setNewMaterial((data) => ({
+                                        ...data,
+                                        [event.target.name]: event.target.value
+                                        }))
                                     }} 
-                                />
-                            </div>
+                                    />
+                                </div>
 
-                            <div className="input-field-block" style={{"width": "10%"}}>
-                                <label htmlFor="material-unit">Unit</label>
-                                <input style={{"width": "80px"}} type="text" name="unit" value={newMaterial.unit} 
-                                    onChange={(event) => {
-                                    setNewMaterial((data) => ({
-                                    ...data,
-                                    [event.target.name]: event.target.value
-                                    }))
-                                }} 
-                                />
-                            </div>
-
-                            <div className="input-field-block" style={{"width": "10%"}}>
-                                <div className="tiny-button" style={{"lineHeight": "30px", "textAlign": "center", "marginTop": "43px"}} onClick={handleAdd}>Add</div>
+                                <div className="input-field-block" style={{"width": "10%"}}>
+                                    <div className="tiny-button input-fix-form-submit" style={{"lineHeight": "30px", "textAlign": "center", "marginTop": "43px"}} onClick={handleAdd}>Add</div>
+                                </div>
                             </div>
                         </>
                     )

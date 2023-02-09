@@ -14,73 +14,79 @@ export default function Labour({ report, setReport}) {
                 Labour Log
             </div>
             <div className="container-main-block">
-                
-            <div className="input-field-block" style={{"width": "30%"}}>
-                <div className="text-label">Description</div>
-                <input 
-                    type="text" 
-                    name="labour-description"
-                    value={labour.description}
-                    disabled={report.status === "approved"}
-                    onChange={(e) => setLabour(data => ({
-                        ...data,
-                        description: e.target.value
-                    }))} 
-                />
-            </div>
             
-            <div className="input-field-block" style={{"width": "10%"}}>
-                <div className="text-label">Planned</div>
-                <input type="number" 
-                    className="input-field" 
-                    style={{"width": "100px"}} 
-                    name="usage" 
-                    value={labour.planned} 
-                    disabled={report.status === "approved"}
-                    onChange={(e) => setLabour(data => ({
-                        ...data,
-                        planned: e.target.value
-                    }))} 
-                />
-            </div>
+            <div className="input-fix-field-container">
+                <div className="text-field-block" style={{"width": "100%"}}>
+                    <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>Labour Log Information</div>
+                </div>
 
-            <div className="input-field-block" style={{"width": "10%"}}>
-                <div className="text-label">Actual</div>
-                <input type="number" 
-                    className="input-field" 
-                    style={{"width": "100px"}} 
-                    name="usage" 
-                    value={labour.actual} 
-                    disabled={report.status === "approved"}
-                    onChange={(e) => setLabour(data => ({
-                        ...data,
-                        actual: e.target.value
-                    }))} 
-                />
-            </div>
-
-            <div className="tiny-button" 
-                style={{
-                    "marginLeft": "20px",
-                    "marginTop": "42px"
-                }}
-                onClick={() => {
-                    if (report.status != "approved" && labour.description && labour.planned && labour.actual) {
-                        setReport(data => ({
+                <div className="input-field-block" style={{"width": "30%"}}>
+                    <div className="text-label">Description</div>
+                    <input 
+                        type="text" 
+                        name="labour-description"
+                        value={labour.description}
+                        disabled={report.status === "approved"}
+                        onChange={(e) => setLabour(data => ({
                             ...data,
-                            labour: [
-                                ...data.labour,
-                                { ...labour, "no": data.labour.length+1 }
-                            ]
-                        }))
-                        setLabour({
-                            no: "",
-                            description: "",
-                            planned: "",
-                            actual: ""
-                        })
-                    }
-            }}>Add</div>
+                            description: e.target.value
+                        }))} 
+                    />
+                </div>
+                
+                <div className="input-field-block" style={{"width": "10%"}}>
+                    <div className="text-label">Planned</div>
+                    <input type="number" 
+                        className="input-field" 
+                        style={{"width": "100px"}} 
+                        name="usage" 
+                        value={labour.planned} 
+                        disabled={report.status === "approved"}
+                        onChange={(e) => setLabour(data => ({
+                            ...data,
+                            planned: e.target.value
+                        }))} 
+                    />
+                </div>
+
+                <div className="input-field-block" style={{"width": "10%"}}>
+                    <div className="text-label">Actual</div>
+                    <input type="number" 
+                        className="input-field" 
+                        style={{"width": "100px"}} 
+                        name="usage" 
+                        value={labour.actual} 
+                        disabled={report.status === "approved"}
+                        onChange={(e) => setLabour(data => ({
+                            ...data,
+                            actual: e.target.value
+                        }))} 
+                    />
+                </div>
+
+                <div className="tiny-button input-fix-form-submit" 
+                    style={{
+                        "marginLeft": "20px",
+                        "marginTop": "42px"
+                    }}
+                    onClick={() => {
+                        if (report.status != "approved" && labour.description && labour.planned && labour.actual) {
+                            setReport(data => ({
+                                ...data,
+                                labour: [
+                                    ...data.labour,
+                                    { ...labour, "no": data.labour.length+1 }
+                                ]
+                            }))
+                            setLabour({
+                                no: "",
+                                description: "",
+                                planned: "",
+                                actual: ""
+                            })
+                        }
+                }}>Add</div>
+            </div>
 
             <hr className="black-separator" />
 

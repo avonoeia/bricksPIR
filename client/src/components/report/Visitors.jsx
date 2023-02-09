@@ -13,60 +13,65 @@ export default function Visitors({ report, setReport}) {
             Visitors Log
         </div>
         <div className="container-main-block">
-            
-        <div className="input-field-block" style={{"width": "30%"}}>
-            <div className="text-label">Name</div>
-            <input 
-                type="text" 
-                name="visitor-name"
-                value={visitor.name}
-                disabled={report.status === "approved"}
-                onChange={(e) => setVisitor(data => ({
-                    ...data,
-                    name: e.target.value
-                }))} 
-            />
-        </div>
-        
-        <div className="input-field-block" style={{"width": "10%"}}>
-            <div className="text-label">Organization</div>
-            <input type="text" 
-                className="input-field" 
-                style={{"width": "100px"}} 
-                name="organization" 
-                value={visitor.organization} 
-                disabled={report.status === "approved"}
-                onChange={(e) => setVisitor(data => ({
-                    ...data,
-                    organization: e.target.value
-                }))} 
-            />
-        </div>
 
-        <div className="tiny-button" 
-            style={{
-                "marginLeft": "20px",
-                "marginTop": "42px"
-            }}
-            onClick={() => {
-                if (
-                    report.status != "approved" &&
-                    !report.visitors.find(i => i.name.toLowerCase() == visitor.name.toLowerCase() && i.organization.toLowerCase() == visitor.organization.toLowerCase()) 
-                    && visitor.name && visitor.organization) {
-                    setReport(data => ({
+        <div className="input-fix-field-container">
+            <div className="text-field-block" style={{"width": "100%"}}>
+                <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>Visitor Log Information</div>
+            </div>
+            <div className="input-field-block" style={{"width": "30%"}}>
+                <div className="text-label">Name</div>
+                <input 
+                    type="text" 
+                    name="visitor-name"
+                    value={visitor.name}
+                    disabled={report.status === "approved"}
+                    onChange={(e) => setVisitor(data => ({
                         ...data,
-                        visitors: [
-                            ...data.visitors,
-                            { ...visitor, "no": data.visitors.length+1 }
-                        ]
-                    }))
-                    setVisitor({
-                        no: "",
-                        name: "",
-                        organization: ""
-                    })
-                }
-        }}>Add</div>
+                        name: e.target.value
+                    }))} 
+                />
+            </div>
+            
+            <div className="input-field-block" style={{"width": "10%"}}>
+                <div className="text-label">Organization</div>
+                <input type="text" 
+                    className="input-field" 
+                    style={{"width": "100px"}} 
+                    name="organization" 
+                    value={visitor.organization} 
+                    disabled={report.status === "approved"}
+                    onChange={(e) => setVisitor(data => ({
+                        ...data,
+                        organization: e.target.value
+                    }))} 
+                />
+            </div>
+
+            <div className="tiny-button" 
+                style={{
+                    "marginLeft": "20px",
+                    "marginTop": "42px"
+                }}
+                onClick={() => {
+                    if (
+                        report.status != "approved" &&
+                        !report.visitors.find(i => i.name.toLowerCase() == visitor.name.toLowerCase() && i.organization.toLowerCase() == visitor.organization.toLowerCase()) 
+                        && visitor.name && visitor.organization) {
+                        setReport(data => ({
+                            ...data,
+                            visitors: [
+                                ...data.visitors,
+                                { ...visitor, "no": data.visitors.length+1 }
+                            ]
+                        }))
+                        setVisitor({
+                            no: "",
+                            name: "",
+                            organization: ""
+                        })
+                    }
+            }}>Add</div>
+        </div>
 
         <hr className="black-separator" />
 

@@ -80,45 +80,58 @@ export default function Activities({ project, setProject }) {
                     user.position == "admin" && (
                         <>
                             <hr className="black-separator" />
-                            
-                            <div className="input-field-block" style={{"width": "30%"}}>
-                                <label htmlFor="activity">Activity</label>
-                                <input type="text" name="activity" value={newActivity.activity} 
-                                    onChange={(event) => {
-                                    setNewActivity((data) => ({
-                                    ...data,
-                                    [event.target.name]: event.target.value
-                                    }))
+
+                            <div className="input-fix-field-container">
+                                <div className="input-field-block" style={{"width": "30%"}}>
+                                    <label htmlFor="activity">Activity</label>
+                                    <input 
+                                        type="text" 
+                                        name="activity" 
+                                        value={newActivity.activity} 
+                                        onChange={(event) => {
+                                        setNewActivity((data) => ({
+                                        ...data,
+                                        [event.target.name]: event.target.value
+                                        }))
+                                        }} 
+                                    />
+                                </div>
+
+                                <div className="input-field-block" style={{"width": "10%"}}>
+                                    <label htmlFor="unit">Unit</label>
+                                    <input 
+                                        style={{"width": "80px"}} 
+                                        type="text" 
+                                        name="unit" 
+                                        value={newActivity.unit} 
+                                        onChange={(event) => {
+                                        setNewActivity((data) => ({
+                                        ...data,
+                                        [event.target.name]: event.target.value
+                                        }))
                                     }} 
-                                />
-                            </div>
+                                    />
+                                </div>
 
-                            <div className="input-field-block" style={{"width": "10%"}}>
-                                <label htmlFor="unit">Unit</label>
-                                <input style={{"width": "80px"}} type="text" name="unit" value={newActivity.unit} 
-                                    onChange={(event) => {
-                                    setNewActivity((data) => ({
-                                    ...data,
-                                    [event.target.name]: event.target.value
-                                    }))
-                                }} 
-                                />
-                            </div>
+                                <div className="input-field-block" style={{"width": "10%"}}>
+                                    <label htmlFor="unit">Total Planned</label>
+                                    <input 
+                                        style={{"width": "80px"}} 
+                                        type="number" 
+                                        name="total_planned" 
+                                        value={newActivity.total_planned} 
+                                        onChange={(event) => {
+                                        setNewActivity((data) => ({
+                                        ...data,
+                                        [event.target.name]: event.target.value
+                                        }))
+                                    }}
+                                    />
+                                </div>
 
-                            <div className="input-field-block" style={{"width": "10%"}}>
-                                <label htmlFor="unit">Total Planned</label>
-                                <input style={{"width": "80px"}} type="number" name="total_planned" value={newActivity.total_planned} 
-                                    onChange={(event) => {
-                                    setNewActivity((data) => ({
-                                    ...data,
-                                    [event.target.name]: event.target.value
-                                    }))
-                                }} 
-                                />
-                            </div>
-
-                            <div className="input-field-block" style={{"width": "10%"}}>
-                                <div className="tiny-button" style={{"lineHeight": "30px", "textAlign": "center", "marginTop": "43px"}} onClick={handleAdd}>Add</div>
+                                <div className="input-field-block" style={{"width": "10%"}}>
+                                    <div className="tiny-button input-fix-field-submit" style={{"lineHeight": "30px", "textAlign": "center", "marginTop": "43px"}} onClick={handleAdd}>Add</div>
+                                </div>
                             </div>
                         </>
                     )

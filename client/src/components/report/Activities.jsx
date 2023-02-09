@@ -42,90 +42,95 @@ export default function Activities({ project, report, setReport}) {
                 {
                     selectedActivity.activity ? (
                     <>
-                        <div className="text-field-block" style={{"width": "15%"}}>
-                            <div className="text-label">Unit</div>
-                            <div className="text-field">{selectedActivity.unit}</div>
-                        </div>
+                        <div className="input-fix-field-container">
+                            <div className="text-field-block" style={{"width": "100%"}}>
+                                <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>Activity Description</div>
+                            </div>
+                            <div className="text-field-block" style={{"width": "15%"}}>
+                                <div className="text-label">Unit</div>
+                                <div className="text-field">{selectedActivity.unit}</div>
+                            </div>
 
-                        <div className="input-field-block" style={{"width": "10%"}}>
-                            <div className="text-label">Level</div>
-                            <input 
-                                type="number" 
-                                className="input-field" 
-                                style={{"width": "100px"}}
-                                value={selectedActivity.level}
-                                onChange={(e) => setSelectedActivity(data => ({
-                                    ...data,
-                                    level: e.target.value
-                                }))} 
-                            />
-                        </div>
-                        <div className="input-field-block" style={{"width": "10%"}}>
-                            <div className="text-label">Gridline</div>
-                            <input 
-                                type="text" 
-                                className="input-field" 
-                                style={{"width": "100px"}}
-                                value={selectedActivity.grid_line}
-                                onChange={(e) => setSelectedActivity(data => ({
-                                    ...data,
-                                    grid_line: e.target.value
-                                }))} 
-                            />
-                        </div>
-                        <div className="input-field-block" style={{"width": "10%"}}>
-                            <div className="text-label">Planned</div>
-                            <input type="number" 
-                                className="input-field" 
-                                style={{"width": "100px"}} 
-                                name="planned" 
-                                value={selectedActivity.planned} 
-                                onChange={(e) => setSelectedActivity(data => ({
-                                    ...data,
-                                    planned: e.target.value
-                                }))} 
-                            />
-                        </div>
-                        <div className="input-field-block" style={{"width": "10%"}}>
-                            <div className="text-label">Achieved</div>
-                            <input 
-                                type="number" 
-                                className="input-field" 
-                                style={{"width": "100px"}}
-                                value={selectedActivity.achieved}
-                                onChange={(e) => setSelectedActivity(data => ({
-                                    ...data,
-                                    achieved: e.target.value
-                                }))} 
-                            />
-                        </div>
-                        
-                        <div className="tiny-button" 
-                            style={{
-                                "marginLeft": "20px",
-                                "marginTop": "42px"
-                            }}
-                            onClick={() => {
-                                if (
-                                    selectedActivity.activity && selectedActivity.planned && selectedActivity.achieved
-                                ) {
-                                    setReport(data => ({
+                            <div className="input-field-block" style={{"width": "10%"}}>
+                                <div className="text-label">Level</div>
+                                <input 
+                                    type="number" 
+                                    className="input-field" 
+                                    style={{"width": "100px"}}
+                                    value={selectedActivity.level}
+                                    onChange={(e) => setSelectedActivity(data => ({
                                         ...data,
-                                        activities: [
-                                            ...data.activities,
-                                            { ...selectedActivity, "no": data.activities.length+1 }
-                                        ]
-                                    }))
-                                    setSelectedActivity({
-                                        activity: "",
-                                        unit: "",
-                                        planned: "",
-                                        achieved: "",
-                                        level: "",
-                                        grid_line: ""
-                                    })
-                                }
-                        }}>Add</div>
+                                        level: e.target.value
+                                    }))} 
+                                />
+                            </div>
+                            <div className="input-field-block" style={{"width": "10%"}}>
+                                <div className="text-label">Gridline</div>
+                                <input 
+                                    type="text" 
+                                    className="input-field" 
+                                    style={{"width": "100px"}}
+                                    value={selectedActivity.grid_line}
+                                    onChange={(e) => setSelectedActivity(data => ({
+                                        ...data,
+                                        grid_line: e.target.value
+                                    }))} 
+                                />
+                            </div>
+                            <div className="input-field-block" style={{"width": "10%"}}>
+                                <div className="text-label">Planned</div>
+                                <input type="number" 
+                                    className="input-field" 
+                                    style={{"width": "100px"}} 
+                                    name="planned" 
+                                    value={selectedActivity.planned} 
+                                    onChange={(e) => setSelectedActivity(data => ({
+                                        ...data,
+                                        planned: e.target.value
+                                    }))} 
+                                />
+                            </div>
+                            <div className="input-field-block" style={{"width": "10%"}}>
+                                <div className="text-label">Achieved</div>
+                                <input 
+                                    type="number" 
+                                    className="input-field" 
+                                    style={{"width": "100px"}}
+                                    value={selectedActivity.achieved}
+                                    onChange={(e) => setSelectedActivity(data => ({
+                                        ...data,
+                                        achieved: e.target.value
+                                    }))} 
+                                />
+                            </div>
+                            
+                            <div className="tiny-button input-fix-form-submit" 
+                                style={{
+                                    "marginLeft": "20px",
+                                    "marginTop": "42px"
+                                }}
+                                onClick={() => {
+                                    if (
+                                        selectedActivity.activity && selectedActivity.planned && selectedActivity.achieved
+                                    ) {
+                                        setReport(data => ({
+                                            ...data,
+                                            activities: [
+                                                ...data.activities,
+                                                { ...selectedActivity, "no": data.activities.length+1 }
+                                            ]
+                                        }))
+                                        setSelectedActivity({
+                                            activity: "",
+                                            unit: "",
+                                            planned: "",
+                                            achieved: "",
+                                            level: "",
+                                            grid_line: ""
+                                        })
+                                    }
+                            }}>Add</div>
+                        </div>
                     </>
                 ) : ""}
 

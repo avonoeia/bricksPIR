@@ -59,6 +59,7 @@ export default function ReportDetails({ project, report, setReport, status }) {
                             style={{"margin": "10px 10px"}} 
                             type="date" 
                             value={report.duration[0]}
+                            disabled={report.status == "approved"}
                             required={true}
                             onChange={(e) => {
                                 setReport(data => {
@@ -76,6 +77,7 @@ export default function ReportDetails({ project, report, setReport, status }) {
                             style={{"margin": "10px 10px"}} 
                             type="date" 
                             value={report.duration[1]} 
+                            disabled={report.status == "approved"}
                             required={true} 
                             onChange={(e) => {
                                 setReport(data => {

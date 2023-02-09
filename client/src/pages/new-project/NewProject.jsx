@@ -109,57 +109,60 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
 
                 <hr className="black-separator" />
 
-                <div className="input-field-block" style={{"width": "30%"}}>
-                    <label htmlFor="activity">Activity</label>
-                    <input type="text" name="activity" value={newActivity.activity} 
-                        onChange={(event) => {
-                            setNewActivity((data) => ({
-                                ...data,
-                                [event.target.name]: event.target.value
-                            }))
-                        }} 
-                    />
-                </div>
+                <div className="input-fix-field-container">
+                    <div className="input-field-block" style={{"width": "30%"}}>
+                        <label htmlFor="activity">Activity</label>
+                        <input type="text" name="activity" value={newActivity.activity} 
+                            onChange={(event) => {
+                                setNewActivity((data) => ({
+                                    ...data,
+                                    [event.target.name]: event.target.value
+                                }))
+                            }} 
+                        />
+                    </div>
 
-                <div className="input-field-block" style={{"width": "10%"}}>
-                    <label htmlFor="unit">Unit</label>
-                    <input style={{"width": "80px"}} type="text" name="unit" value={newActivity.unit} 
-                        onChange={(event) => {
-                            setNewActivity((data) => ({
-                                ...data,
-                                [event.target.name]: event.target.value
-                            }))
-                        }} 
-                    />
-                </div>
+                    <div className="input-field-block" style={{"width": "10%"}}>
+                        <label htmlFor="unit">Unit</label>
+                        <input style={{"width": "80px"}} type="text" name="unit" value={newActivity.unit} 
+                            onChange={(event) => {
+                                setNewActivity((data) => ({
+                                    ...data,
+                                    [event.target.name]: event.target.value
+                                }))
+                            }} 
+                        />
+                    </div>
 
-                <div className="input-field-block" style={{"width": "10%"}}>
-                    <label htmlFor="unit">Total Planned</label>
-                    <input style={{"width": "80px"}} type="number" name="total_planned" value={newActivity.total_planned} 
-                        onChange={(event) => {
-                            setNewActivity((data) => ({
-                                ...data,
-                                [event.target.name]: event.target.value
-                            }))
-                        }} 
-                    />
-                </div>
+                    <div className="input-field-block" style={{"width": "25%"}}>
+                        <label htmlFor="unit">Total Planned</label>
+                        <input style={{"width": "80px"}} type="number" name="total_planned" value={newActivity.total_planned} 
+                            onChange={(event) => {
+                                setNewActivity((data) => ({
+                                    ...data,
+                                    [event.target.name]: event.target.value
+                                }))
+                            }} 
+                        />
+                    </div>
 
-                <div className="input-field-block" style={{"width": "10%"}}>
-                    <div className="tiny-button" style={{"lineHeight": "30px", "textAlign": "center", "marginTop": "43px"}} onClick={() => {
-                        if (newActivity.activity && newActivity.unit && newActivity.total_planned) {
-                            setNewProject(data => ({
-                                ...data,
-                                activities: [...data.activities, newActivity]
-                            }))
-                            setNewActivity({
-                                activity: "",
-                                unit: "",
-                                total_planned: "",
-                                total_achieved: 0
-                            })
-                        }
-                    }}>Add</div>
+                    <div className="input-field-block" style={{"width": "100%", "margin": 0}}>
+                        <div className="tiny-button input-fix-field-submit" onClick={() => {
+                            if (newActivity.activity && newActivity.unit && newActivity.total_planned) {
+                                setNewProject(data => ({
+                                    ...data,
+                                    activities: [...data.activities, newActivity]
+                                }))
+                                setNewActivity({
+                                    activity: "",
+                                    unit: "",
+                                    total_planned: "",
+                                    total_achieved: 0
+                                })
+                            }
+                        }}
+                    >Add</div>
+                    </div>
                 </div>
 
                 <table style={{"width": "60%"}}>
@@ -174,12 +177,12 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                         {
                             newProject.activities.length > 0 ? (
                                 newProject.activities.map(activity => (
-                                    <tr>
+                                    <tr key={activity.activity}>
                                         <td>{activity.activity}</td>
                                         <td>{activity.unit}</td>
                                         <td>{activity.total_planned}</td>
                                         <td style={{"width": "15px"}}>
-                                            <div className="tiny-button" style={{"margin": 0, "background": "linear-gradient(88.94deg, #E81A37 0.66%, #FF495A 99.1%)", "border-radius": "50%", "width": "15px", "height": "15px", "fontSize": "10px", "lineHeight": "15px"}} onClick={(event) => {
+                                            <div className="tiny-button" style={{"margin": 0, "background": "linear-gradient(88.94deg, #E81A37 0.66%, #FF495A 99.1%)", "borderRadius": "50%", "width": "15px", "height": "15px", "fontSize": "10px", "lineHeight": "15px"}} onClick={(event) => {
                                             const newActivities = newProject.activities.filter(item => item.activity != activity.activity)
                                             setNewProject(data => ({...data, activities: newActivities}))
                                         }}>X</div></td>
@@ -216,7 +219,8 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                             }))
                             setNewSiteManager("")
                         }
-                    }}>Add</div>
+                    }}
+                >Add</div>
 
                     <table style={{"width": "80%"}}>
                         <thead>
@@ -233,9 +237,9 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                                             <td>{user.split(" - ")[0]}</td>
                                             <td>{user.split(" - ")[1]}</td>
                                             <td style={{"width": "15px"}}>
-                                                <div className="tiny-button" style={{"margin": 0, "background": "linear-gradient(88.94deg, #E81A37 0.66%, #FF495A 99.1%)", "border-radius": "50%", "width": "15px", "height": "15px", "fontSize": "10px", "lineHeight": "15px"}} onClick={(event) => {
-                                                    const newActivities = newProject.activities.filter(item => item.activity != activity.activity)
-                                                    setNewProject(data => ({...data, activities: newActivities}))
+                                                <div className="tiny-button" style={{"margin": 0, "background": "linear-gradient(88.94deg, #E81A37 0.66%, #FF495A 99.1%)", "borderRadius": "50%", "width": "15px", "height": "15px", "fontSize": "10px", "lineHeight": "15px"}} onClick={(event) => {
+                                                    const newNewSiteManager = newProject.site_manager.filter(item => item != `${user.split(" - ")[0]} - ${user.split(" - ")[1]}`)
+                                                    setNewProject(data => ({...data, site_manager: newNewSiteManager}))
                                                 }}>X</div>
                                             </td>
                                         </tr>
@@ -286,9 +290,9 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                                             <td>{user.split(" - ")[0]}</td>
                                             <td>{user.split(" - ")[1]}</td>
                                             <td style={{"width": "15px"}}>
-                                                <div className="tiny-button" style={{"margin": 0, "background": "linear-gradient(88.94deg, #E81A37 0.66%, #FF495A 99.1%)", "border-radius": "50%", "width": "15px", "height": "15px", "fontSize": "10px", "lineHeight": "15px"}} onClick={(event) => {
-                                                    const newActivities = newProject.activities.filter(item => item.activity != activity.activity)
-                                                    setNewProject(data => ({...data, activities: newActivities}))
+                                                <div className="tiny-button" style={{"margin": 0, "background": "linear-gradient(88.94deg, #E81A37 0.66%, #FF495A 99.1%)", "borderRadius": "50%", "width": "15px", "height": "15px", "fontSize": "10px", "lineHeight": "15px"}} onClick={(event) => {
+                                                    const newNewDataEntryOperator = newProject.activities.filter(item => item => item != `${user.split(" - ")[0]} - ${user.split(" - ")[1]}`)
+                                                    setNewProject(data => ({...data, data_entry_operator: newNewDataEntryOperator}))
                                                 }}>X</div>
                                             </td>
                                         </tr>
@@ -308,8 +312,8 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                 <button className="small-button"
                     style={{
                         "width": "150px",
-                        "line-height": "43px",
-                        "text-align": "center"
+                        "lineHeight": "43px",
+                        "textAlign": "center"
                     }}
                 >
                     Create Project
@@ -331,12 +335,10 @@ export default function NewProject() {
         site_manager: [],
         data_entry_operator: [],
     })
-    console.log(newProject)
 
     function handleSubmit(event) {
         event.preventDefault()
         const submitNewProject = async () => {
-            console.log("Submit new Project")
             const response = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/create-project`, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`,
@@ -347,7 +349,6 @@ export default function NewProject() {
             })
             
             if (response.ok) {
-                console.log("Response is ok")
                 window.location.href = "/projects"
             }
         }

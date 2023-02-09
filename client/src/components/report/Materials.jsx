@@ -38,46 +38,51 @@ export default function Materiails({ project, report, setReport}) {
                 {
                     selectedMaterial.material ? (
                     <>
-                        <div className="text-field-block" style={{"width": "15%"}}>
-                            <div className="text-label">Unit</div>
-                            <div className="text-field">{selectedMaterial.unit}</div>
-                        </div>
-                        <div className="input-field-block" style={{"width": "10%"}}>
-                            <div className="text-label">Usage</div>
-                            <input type="number" 
-                                className="input-field" 
-                                style={{"width": "100px"}} 
-                                name="usage" 
-                                value={selectedMaterial.usage} 
-                                onChange={(e) => setSelectedMaterial(data => ({
-                                    ...data,
-                                    usage: e.target.value
-                                }))} 
-                            />
-                        </div>
-                        <div className="tiny-button" 
-                            style={{
-                                "marginLeft": "20px",
-                                "marginTop": "42px"
-                            }}
-                            onClick={() => {
-                                if (!report.materials.find(item => item.material == selectedMaterial.material)
-                                    && selectedMaterial.material && selectedMaterial.usage
-                                ) {
-                                    setReport(data => ({
+                        <div className="input-fix-field-container">
+                            <div className="text-field-block" style={{"width": "100%"}}>
+                                <div className="text-label" style={{"fontSize": "30px", "color": "rgb(103, 103, 240)"}}>Material Usage Information</div>
+                            </div>
+                            <div className="text-field-block" style={{"width": "15%"}}>
+                                <div className="text-label">Unit</div>
+                                <div className="text-field">{selectedMaterial.unit}</div>
+                            </div>
+                            <div className="input-field-block" style={{"width": "10%"}}>
+                                <div className="text-label">Usage</div>
+                                <input type="number" 
+                                    className="input-field" 
+                                    style={{"width": "100px"}} 
+                                    name="usage" 
+                                    value={selectedMaterial.usage} 
+                                    onChange={(e) => setSelectedMaterial(data => ({
                                         ...data,
-                                        materials: [
-                                            ...data.materials,
-                                            { ...selectedMaterial }
-                                        ]
-                                    }))
-                                    setSelectedMaterial({
-                                        material: "",
-                                        unit: "",
-                                        usage: ""
-                                    })
-                                }
-                        }}>Add</div>
+                                        usage: e.target.value
+                                    }))} 
+                                />
+                            </div>
+                            <div className="tiny-button input-fix-form-submit" 
+                                style={{
+                                    "marginLeft": "20px",
+                                    "marginTop": "42px"
+                                }}
+                                onClick={() => {
+                                    if (!report.materials.find(item => item.material == selectedMaterial.material)
+                                        && selectedMaterial.material && selectedMaterial.usage
+                                    ) {
+                                        setReport(data => ({
+                                            ...data,
+                                            materials: [
+                                                ...data.materials,
+                                                { ...selectedMaterial }
+                                            ]
+                                        }))
+                                        setSelectedMaterial({
+                                            material: "",
+                                            unit: "",
+                                            usage: ""
+                                        })
+                                    }
+                            }}>Add</div>
+                        </div>
                     </>
                 ) : ""}
 
