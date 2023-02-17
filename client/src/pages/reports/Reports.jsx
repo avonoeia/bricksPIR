@@ -103,7 +103,7 @@ function PreviousReportsContainer() {
                                 <p style={{"margin": "0px 0px 5px 0px"}}><strong>Created by:</strong> {report.created[0]} at {report.created[1].split("T")[0]} <strong>Submitted:</strong> {report.updatedAt.split("T")[0]} </p>
                             </div>
                             <div className="general-card-button-container">
-                                <Link to={`/reports/${report._id}`}>
+                                <Link to={`/reports/approved/${report._id}`}>
                                     <button className="small-button">
                                         View Details
                                     </button>

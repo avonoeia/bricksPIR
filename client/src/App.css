@@ -8,6 +8,18 @@
   text-align: center;
 }
 
+a {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
+}
+
 .App {
   padding: 1rem;
 }
@@ -216,4 +228,32 @@ table > tr > th {
   line-height: 30px; 
   text-align: center; 
   margin: 0 auto;
+}
+
+
+.report-box {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.report-box-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.report-box-row > div {
+  background-color: #ececec;
+  width: 100%;
+  margin: 1px;
+  padding: 10px 10px;
+}
+
+.report-box > .heading {
+  color: rgb(71, 71, 255);
+  margin: 10px 0px;
+  width: 100%;
 }

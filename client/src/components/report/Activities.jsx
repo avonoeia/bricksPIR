@@ -64,6 +64,7 @@ export default function Activities({ project, report, setReport}) {
                                     }))} 
                                 />
                             </div>
+                            {/* Break up grid description in x and y direction fields */}
                             <div className="input-field-block" style={{"width": "10%"}}>
                                 <div className="text-label">Gridline</div>
                                 <input 

@@ -137,7 +137,7 @@ export default function ReportPage() {
         <QueryClientProvider client={queryClient}>
             <Navbar pageName="reports" />
             <main>
-            <div className="page-route">/ Reports / View Report</div>
+                <div className="page-route">/ Reports / View Report</div>
                 <form>
                     <ReportPageComponent project={project} setProject={setProject} report={report} setReport={setReport} />
                     {

@@ -79,7 +79,8 @@ async function createProject(req, res) {
             activities: req.body.activities,
             materials: [],
             equipments: [],
-            visitors: []
+            visitors: [],
+            labour: []
         })
         if (newProject) {
             console.log("New project created with id:", newProject._id)
