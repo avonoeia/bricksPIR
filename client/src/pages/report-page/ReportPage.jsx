@@ -149,7 +149,7 @@ export default function ReportPage() {
                         ) : ""
                     }
                     
-                    <div className="input-field-block" style={{"margin": "20px auto"}}>
+                    <div className="input-field-block" style={{"width": "100%", "margin": "20px auto"}}>
                         {report && report.status != "approved" && user.position == "site_manager" ? 
                             (
                             <>

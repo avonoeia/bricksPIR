@@ -241,7 +241,7 @@ export default function Materials({ project, setProject }) {
                                     <thead>
                                         <tr>
                                             <th>Report ID</th>
-                                            <th>Duration</th>
+                                            <th>Date</th>
                                             <th>Usage</th>
                                         </tr>
                                     </thead>
@@ -251,7 +251,7 @@ export default function Materials({ project, setProject }) {
                                                 selectedMaterial.history.map(data => (
                                                     <tr key={`${data[0]}`}>
                                                         <td><Link to={`/reports/${data[0]}`}>{data[0]}</Link></td>
-                                                        <td>From {data[1][0]} to {data[1][1]}</td>
+                                                        <td>{data[1].split("T")[0]}</td>
                                                         <td>{data[2]}</td>
                                                     </tr>
                                                 ))

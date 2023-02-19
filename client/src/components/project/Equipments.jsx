@@ -118,7 +118,7 @@ export default function Equipments({ project, setProject }) {
                                 <thead>
                                     <tr>
                                         <th>Report ID</th>
-                                        <th>Duration</th>
+                                        <th>Date</th>
                                         <th>Status</th>
                                         <th>Hours</th>
                                     </tr>
@@ -129,7 +129,7 @@ export default function Equipments({ project, setProject }) {
                                             selectedEquipment.history.map(equipment => (
                                                 <tr key={equipment[0]}>
                                                     <td><Link to={`/reports/${equipment[0]}`}>{equipment[0]}</Link></td>
-                                                    <td>From {equipment[1][0]} to {equipment[1][1]}</td>
+                                                    <td>{equipment[1].split("T")[0]}</td>
                                                     <td>{equipment[2][1]}</td>
                                                     <td>{equipment[2][0]}</td>
                                                 </tr>

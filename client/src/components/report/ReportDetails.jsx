@@ -52,12 +52,12 @@ export default function ReportDetails({ project, report, setReport, status }) {
 
                 <hr className="black-separator" />
                 <div className="text-field-block" style={{"width": "100%"}}>
-                    <div className="text-label">Report Duration</div>
+                    <div className="text-label">Work Duration</div>
                     <div className="text-field">
-                        From
+                        From time (24 hrs format)
                         <input 
                             style={{"margin": "10px 10px"}} 
-                            type="date" 
+                            type="time" 
                             value={report.duration[0]}
                             disabled={report.status == "approved"}
                             required={true}
@@ -72,10 +72,10 @@ export default function ReportDetails({ project, report, setReport, status }) {
                                 })
                             }} 
                         />
-                        To
+                        To time (24 hrs format)
                         <input 
                             style={{"margin": "10px 10px"}} 
-                            type="date" 
+                            type="time" 
                             value={report.duration[1]} 
                             disabled={report.status == "approved"}
                             required={true} 

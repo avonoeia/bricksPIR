@@ -8,7 +8,7 @@ export default function Activities({ project, report, setReport}) {
         planned: "",
         achieved: "",
         level: "",
-        grid_line: ""
+        grid_line: ["", "", "", ""]
     })
 
     return (
@@ -65,19 +65,73 @@ export default function Activities({ project, report, setReport}) {
                                 />
                             </div>
                             {/* Break up grid description in x and y direction fields */}
-                            <div className="input-field-block" style={{"width": "10%"}}>
-                                <div className="text-label">Gridline</div>
-                                <input 
-                                    type="text" 
-                                    className="input-field" 
-                                    style={{"width": "100px"}}
-                                    value={selectedActivity.grid_line}
-                                    onChange={(e) => setSelectedActivity(data => ({
-                                        ...data,
-                                        grid_line: e.target.value
-                                    }))} 
-                                />
+                            <div className="input-field-block" style={{"width": "100%"}}>
+                                <div className="text-label">Grid location</div>
+                                <div className="spreadout-location special-text">
+                                    X-axis 
+                                    <input 
+                                        type="text" 
+                                        className="input-field" 
+                                        style={{"width": "100px", "margin": "0px 10px"}}
+                                        value={selectedActivity.grid_line[0]}
+                                        onChange={(e) => {
+                                            setSelectedActivity(data => {
+                                                data.grid_line[0] = e.target.value
+                                                return {
+                                                    ...data,
+                                                }
+                                            })
+                                        }} 
+                                    />
+                                    -
+                                    <input 
+                                        type="text" 
+                                        className="input-field" 
+                                        style={{"width": "100px", "margin": "0px 10px"}}
+                                        value={selectedActivity.grid_line[1]}
+                                        onChange={(e) => {
+                                            setSelectedActivity(data => {
+                                                data.grid_line[1] = e.target.value
+                                                return {
+                                                    ...data,
+                                                }
+                                            })
+                                        }} 
+                                    />
+
+                                    Y-axis 
+                                    <input 
+                                        type="text" 
+                                        className="input-field" 
+                                        style={{"width": "100px", "margin": "0px 10px"}}
+                                        value={selectedActivity.grid_line[2]}
+                                        onChange={(e) => {
+                                            setSelectedActivity(data => {
+                                                data.grid_line[2] = e.target.value
+                                                return {
+                                                    ...data,
+                                                }
+                                            })
+                                        }}  
+                                    />
+                                    -
+                                    <input 
+                                        type="text" 
+                                        className="input-field" 
+                                        style={{"width": "100px", "margin": "0px 10px"}}
+                                        value={selectedActivity.grid_line[3]}
+                                        onChange={(e) => {
+                                            setSelectedActivity(data => {
+                                                data.grid_line[3] = e.target.value
+                                                return {
+                                                    ...data,
+                                                }
+                                            })
+                                        }} 
+                                    />
+                                </div>
                             </div>
+                            
                             <div className="input-field-block" style={{"width": "10%"}}>
                                 <div className="text-label">Planned</div>
                                 <input type="number" 
@@ -118,7 +172,11 @@ export default function Activities({ project, report, setReport}) {
                                             ...data,
                                             activities: [
                                                 ...data.activities,
-                                                { ...selectedActivity, "no": data.activities.length+1 }
+                                                {   
+                                                    ...selectedActivity,
+                                                    "no": data.activities.length+1,
+                                                    grid_line: `${selectedActivity.grid_line[0]}-${selectedActivity.grid_line[1]}/${selectedActivity.grid_line[2]}-${selectedActivity.grid_line[3]}`
+                                                }
                                             ]
                                         }))
                                         setSelectedActivity({

@@ -214,7 +214,9 @@ export default function ReportApproved() {
 
                     {
                         reportData ? (
-                            <ReportContent reportData={reportData} />
+                            <>
+                                <ReportContent reportData={reportData} />
+                            </>
                         ) : "Loading..."
                     }
 

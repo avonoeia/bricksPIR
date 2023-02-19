@@ -108,7 +108,7 @@ export default function NewReport() {
         e.preventDefault();
 
         const reportDocument = {
-            ...report,
+            ...report
         }
 
         const submitReport = async () => {
