@@ -55,7 +55,7 @@ function PendingReportsContainer() {
                                 </Link>
                             </div>
                         </div>
-                    )) ) : "No pending reports"
+                    )) ) : <div style={{"textAlign": "center", "width": "100%"}}>Pending queue is empty</div>
                 }
             </div>
         </div>
@@ -68,7 +68,10 @@ function PreviousReportsContainer() {
 
     const fetchReportsData = async () => {
         const response = await fetch('/api/reports/', {
-            headers: {'Authorization': `Bearer ${user.token}`},
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+                'Content-type': 'application/json'
+            },
         })
         return response.json()
     }

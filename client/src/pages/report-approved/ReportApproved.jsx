@@ -12,7 +12,7 @@ function ReportContent({ reportData }) {
                 {/* Report Information */}
                 <div className="report-box-row">
                     <div>
-                        Report created by {reportData.created[0]} on {reportData.created[1].split("T")[0]}. Approved 
+                        Report created by <u>{reportData.created[0]}</u> on {reportData.created[1].split("T")[0]}. Approved 
                         on <strong>{reportData.updatedAt.split("T")[0]}</strong> at
                         time {new Date(reportData.updatedAt).toLocaleTimeString()}.
                     </div>
@@ -96,6 +96,84 @@ function ReportContent({ reportData }) {
 
                         </div>
                     )) : "No activities"
+                }
+
+                {/* Materials */}
+                <h2 className="heading">Materials</h2>
+                <div className="report-box-row">
+                    <div>
+                        <strong>Material</strong>
+                    </div>
+                    <div>
+                        <strong>Unit</strong>
+                    </div>
+                    <div>
+                        <strong>Usage</strong>
+                    </div>
+                </div>
+                {
+                    reportData.materials.length > 0 ? reportData.materials.map(mat => (
+                        <div key={mat.material} className="report-box-row">
+                            <div>{mat.material}</div>
+                            <div>{mat.unit}</div>
+                            <div>{mat.usage}</div>
+
+                        </div>
+                    )) : "No material record"
+                }
+
+                {/* Equipments */}
+                <h2 className="heading">Equipments</h2>
+                <div className="report-box-row">
+                    <div>
+                        <strong>ID</strong>
+                    </div>
+                    <div>
+                        <strong>Category</strong>
+                    </div>
+                    <div>
+                        <strong>Status</strong>
+                    </div>
+                    <div>
+                        <strong>Hours</strong>
+                    </div>
+                </div>
+                {
+                    reportData.equipments.length > 0 ? reportData.equipments.map(eqp => (
+                        <div key={eqp.id} className="report-box-row">
+                            <div>{eqp.id}</div>
+                            <div>{eqp.category}</div>
+                            <div>{eqp.status}</div>
+                            <div>{eqp.hours}</div>
+                        </div>
+                    )) : "No equipment record"
+                }
+
+                {/* Labour */}
+                <h2 className="heading">Labour</h2>
+                <div className="report-box-row">
+                    <div>
+                        <strong>No.</strong>
+                    </div>
+                    <div>
+                        <strong>Description</strong>
+                    </div>
+                    <div>
+                        <strong>Planned</strong>
+                    </div>
+                    <div>
+                        <strong>Actual</strong>
+                    </div>
+                </div>
+                {
+                    reportData.labour.length > 0 ? reportData.labour.map(lab => (
+                        <div key={lab.no} className="report-box-row">
+                            <div>{lab.no}</div>
+                            <div>{lab.description}</div>
+                            <div>{lab.planned}</div>
+                            <div>{lab.actual}</div>
+                        </div>
+                    )) : "No labour record"
                 }
             </div>
         </div>

@@ -66,7 +66,7 @@ function ProjectComponent() {
                                         <div className="container-main-block" style={{"width": "30%"}}>
                                             <div className="text-field-block">
                                                 <div className="text-label">Access</div>
-                                                <div className="text-field">{profile.access.map(item => <>{item}<br /></>)}</div>
+                                                <div className="text-field">{ profile.access.map(item => <React.Fragment key={item}>{item}<br /></React.Fragment>)} </div>
                                             </div>
                                         </div>
                                     </div>
