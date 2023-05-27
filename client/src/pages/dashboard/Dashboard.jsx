@@ -8,7 +8,7 @@ export default function Dashboard() {
             <Navbar pageName="dashboard" />
             <main>
                 <div className="page-route">/ Dashboard</div>
-                Under construction...
+                Under construction
             </main>
         </>
     )

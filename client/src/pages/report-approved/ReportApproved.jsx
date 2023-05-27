@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { useAuthContext } from "../../hooks/useAuthContext"
+import ReactToPrint from 'react-to-print';
 import { Link } from "react-router-dom"
 
 
 import Navbar from "../../components/navbar/Navbar"
+import ContentToPrint from "../../components/print/ContentToPrint.jsx"
 
 function ReportContent({ reportData }) {
     return (
@@ -184,6 +186,7 @@ function ReportContent({ reportData }) {
 export default function ReportApproved() {
     const { user } = useAuthContext()
     const [reportData, setReportData] = useState("")
+    const printRef = useRef(null)
 
     useEffect(() => {
         const arr = window.location.href.split('/')
@@ -216,6 +219,19 @@ export default function ReportApproved() {
                         reportData ? (
                             <>
                                 <ReportContent reportData={reportData} />
+
+                                <div style={{"display": "none"}}>
+                                    <ContentToPrint 
+                                        ref={printRef} 
+                                        reportData={reportData}
+                                    />
+                                </div>
+
+                                <ReactToPrint 
+                                    trigger={() => <button className="small-button">Print</button>}
+                                    content={() => printRef.current}
+                                    pageStyle="@page { size: auto; margin: 5mm; }"
+                                />
                             </>
                         ) : "Loading..."
                     }

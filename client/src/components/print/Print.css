@@ -1,0 +1,84 @@
+@media print {
+    .PrintSection{
+      padding: 50px !important;
+    }
+}
+
+.print-container {
+    font-family: 'Arial';
+    font-size: 12px;
+}
+  
+  
+/* Header styles */
+.header {
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+.header-info > h1 {
+text-align: right;
+font-size: 1.4rem;
+font-weight: 700;
+color: rgb(37, 37, 37);
+margin: 1px 0px;
+}
+.header-info > h2 {
+text-align: right;
+font-size: 1rem;
+font-weight: 400;
+color: rgb(37, 37, 37);
+margin: 1px 0px;
+}
+
+/* Section */
+.section {
+display: flex;
+justify-content: flex-start;
+align-items: flex-start;
+}
+
+/* Section headers */
+.section-header {
+    font-weight: 700;
+    padding: 8px 10px;
+    border: 1px solid black;
+    writing-mode: sideways-lr;
+}
+
+/* Section body */
+.section-body {
+    margin: 0px 2px;
+    width: 100%;
+}
+
+hr {
+    border: none;
+}
+
+.table {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1px;
+}
+
+.th {
+    width: 100%;
+    max-width: 220px;
+    font-weight: 700;
+    border: 1px solid black;
+    padding: 0.5px 10px;
+    margin: 0px 0.5px;
+}
+
+.td {
+    width: 100%;
+    border: 1px solid black;
+    padding: 0.5px 10px;
+    margin: 0px 0.5px;
+}
