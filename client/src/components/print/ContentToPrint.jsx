@@ -11,7 +11,7 @@ const ContentToPrint = forwardRef((props, ref) => {
         <div className="header-info">
           <h1>Project Quality Plan</h1>
           <h2>Daily Progress Report</h2>
-          <h2>Date: {Date(props.reportData.created[1]).split(" ").slice(0, 4).map(data => ` ${data}`)}</h2>
+          <h2>{Date(props.reportData.created[1]).split(" ").slice(0, 4).map(data => ` ${data}`)}</h2>
         </div>
       </div>
 
