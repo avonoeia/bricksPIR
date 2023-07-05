@@ -49,6 +49,18 @@ const reportSchema = new Schema({
     },
     created: {
         type: Array,
+    },
+    contractor: {
+        type: String,
+    },
+    employer: {
+        type: String,
+    },
+    contract_start_date: {
+        type: Date,
+    },
+    contract_completion_date: {
+        type: Date,
     }
 }, {timestamps: true})
 

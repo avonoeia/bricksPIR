@@ -76,6 +76,10 @@ async function startNewReport(req, res) {
     const reportDocument = {
         ...req.body,
         status: "pending approval",
+        contractor: project.contractor,
+        employer: project.employer,
+        contract_start_date: project.contract_start_date,
+        contract_completion_date: project.contract_completion_date,
         created: [name, new Date()],
     }
 

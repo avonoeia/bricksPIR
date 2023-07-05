@@ -8,6 +8,7 @@ import Navbar from "../../components/navbar/Navbar"
 import ContentToPrint from "../../components/print/ContentToPrint.jsx"
 
 function ReportContent({ reportData }) {
+    console.log(reportData)
     return (
         <div className="container-main-block">
             <div className="report-box">
@@ -35,12 +36,12 @@ function ReportContent({ reportData }) {
                     <div>
                         <strong>
                             Time Elapsed:
-                        </strong> {Math.round((new Date(reportData.updatedAt) - new Date('2023-01-01').getTime()) / (1000 * 3600 * 24 ))} day(s)
+                        </strong> {Math.round((new Date(reportData.updatedAt) - new Date(reportData.contract_start_date.split("T")[0]).getTime()) / (1000 * 3600 * 24 ))} day(s)
                     </div>
                     <div>
                         <strong>
                             Time Remaining:
-                        </strong> {Math.round((new Date('2023-02-28').getTime() - new Date(reportData.updatedAt).getTime()) / (1000 * 3600 * 24 ))}  day(s)
+                        </strong> {Math.round((new Date(reportData.contract_completion_date.split("T")[0]).getTime() - new Date(reportData.updatedAt).getTime()) / (1000 * 3600 * 24 ))}  day(s)
                     </div>
                 </div>
                 
@@ -49,13 +50,13 @@ function ReportContent({ reportData }) {
                 <h2 className="heading">Site</h2>
                 <div className="report-box-row">
                     <div>
-                        <strong>Weather:</strong> No rain
+                        <strong>Weather:</strong> To be implemented
                     </div>
                     <div>
-                        <strong>From:</strong> 7am <strong>To:</strong> 10am
+                        <strong>From:</strong> {reportData.duration[0]} <strong>To:</strong> {reportData.duration[1]}
                     </div>
                     <div>
-                        <strong>Site Conditions:</strong> Slushy
+                        <strong>Site Conditions:</strong> To be implemented
                     </div>
                 </div>
 
@@ -177,6 +178,29 @@ function ReportContent({ reportData }) {
                         </div>
                     )) : "No labour record"
                 }
+
+                {/* Visitors */}
+                <h2 className="heading">Visitors</h2>
+                <div className="report-box-row">
+                    <div>
+                        <strong>No.</strong>
+                    </div>
+                    <div>
+                        <strong>Name</strong>
+                    </div>
+                    <div>
+                        <strong>Organization</strong>
+                    </div>
+                </div>
+                {
+                    reportData.visitors.length > 0 ? reportData.visitors.map(visitor => (
+                        <div key={visitor.no} className="report-box-row">
+                            <div>{visitor.no}</div>
+                            <div>{visitor.name}</div>
+                            <div>{visitor.organization}</div>
+                        </div>
+                    )) : "No Visitor record"
+                }
             </div>
         </div>
     )
@@ -206,7 +230,6 @@ export default function ReportApproved() {
         fetchReports()
     }, [])
 
-    console.log(reportData)
     return (
         <>
             <Navbar pageName="reports" />
