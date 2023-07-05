@@ -289,12 +289,12 @@ const ContentToPrint = forwardRef((props, ref) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {props.reportData.equipments.map(
+                                        {props.reportData.labour.map(
                                             (data) => {
                                                 return (
                                                     <tr key={data.description}>
                                                         <td>
-                                                            {data.descripton}
+                                                            {data.description}
                                                         </td>
                                                         <td>{data.planned}</td>
                                                         <td>{data.actual}</td>
