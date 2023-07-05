@@ -16,6 +16,7 @@ import Profile from "./pages/profile-page/profilePage"
 import Dashboard from "./pages/dashboard/Dashboard"
 import LoginError from "./pages/login-error/LoginError"
 import Login from "./pages/login/Login"
+import Equipments from './pages/equipments/Equipments'
 
 function AppComponent() {
   const { user } = useAuthContext()
@@ -46,6 +47,9 @@ function AppComponent() {
           
           {/* Profile Route */}
           <Route path='profile' element={ user ? <Profile /> : <LoginError /> } />
+
+          {/* Equipments. ONLY FOR ADMIN ACCOUNTS */}
+          <Route path='equipments' element={ user ? ( user.position == "admin" ? <Equipments /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } />
 
           {/* Users */} {/* ONLY FOR ADMIN ACCOUNTS */}
           {/* <Route path='/users' element={ user ? ( user.position == "admin" ? <Users /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } />

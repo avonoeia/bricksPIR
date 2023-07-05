@@ -19,19 +19,19 @@ export default function Navbar (props) {
                 <div className="logo">BricksPIR</div>
                 <hr />
                 <ul>
-                    <Link to='/' className="link-styling"><li id="dashboard" className={selected === "dashboard" ? "selected nav-option" : "nav-option"}>Dashboard</li></Link>
+                    {/* <Link to='/' className="link-styling"><li id="dashboard" className={selected === "dashboard" ? "selected nav-option" : "nav-option"}>Dashboard</li></Link> */}
                     <Link to='/projects' className="link-styling"><li id="projects" className={selected === "projects" ? "selected nav-option" : "nav-option"}>Projects</li></Link>
                     <Link to='/reports' className="link-styling"><li id="reports" className={selected === "reports" ? "selected nav-option" : "nav-option"}>Reports</li></Link>
                     <Link to='/profile' className="link-styling"><li id="profile" className={selected === "profile" ? "selected nav-option" : "nav-option"}>Profile</li></Link>
-                    {/* {
+                    {
                         user.position === "admin" ? 
                         <>
                             <hr className="navbar-break" />
-                            <Link to='/users' className="link-styling"><li id="users" className={selected === "users" ? "selected nav-option" : "nav-option"}>Users</li></Link>
+                            <Link to='/equipments' className="link-styling"><li id="users" className={selected === "equipments" ? "selected nav-option" : "nav-option"}>Equipments</li></Link>
                         </>
                         :
                         ""
-                    } */}
+                    }
                 </ul>
             </div>
             <div className="bottom">
