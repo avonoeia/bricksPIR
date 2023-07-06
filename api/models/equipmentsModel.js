@@ -18,7 +18,7 @@ const projectSchema = new Schema({
         type: Array,
     },
     "current_location": {
-        type: String,
+        type: Object,
     },
     "transferred_on": {
         type: Date
