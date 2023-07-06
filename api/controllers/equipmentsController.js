@@ -132,37 +132,4 @@ async function transferEquipment(req, res) {
     equipment.transferred_on = transferred_on;
 }
 
-async function addEquipment(req, res) {
-    const { newEquipment } = req.body;
-    const { project_id } = req.params;
-
-    let project = "";
-    try {
-        project = await Project.findOne({ _id: project_id });
-    } catch (err) {
-        console.log(err);
-        return res.status(400).send("Unexpected error.");
-    }
-
-    project.equipments = [...project.equipments, newEquipment];
-
-    try {
-        const updatedProject = await Project.findOneAndUpdate(
-            { _id: project_id },
-            { equipments: project.equipments },
-            { new: true }
-        );
-
-        return res
-            .status(200)
-            .json({
-                message: "Success!",
-                updatedEquipments: updatedProject.equipments,
-            });
-    } catch (err) {
-        console.log(err);
-        return res.status(400).send("Unexpected error.");
-    }
-}
-
-module.exports = { getEquipments, getEquipment, createEquipment };
+module.exports = { getEquipments, getEquipment, createEquipment, transferEquipment };

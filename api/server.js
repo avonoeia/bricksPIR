@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const reportRoutes = require('./routes/reports')
 const projectRoutes = require('./routes/project')
 const userRoutes = require('./routes/user')
+const equipmentsRoutes = require('./routes/equipments')
 
 // express app 
 app = express()
@@ -19,6 +20,7 @@ app.use(express.json())
 app.use('/api/users', userRoutes)
 app.use('/api/reports', reportRoutes)
 app.use('/api/projects', projectRoutes)
+app.use('/api/equipments', equipmentsRoutes)
 
 
 // Connecting to MongoDB database
