@@ -32,7 +32,7 @@ function AppComponent() {
           <Route path='*' element={<div>Oops! Looks likes something went wrong.</div>} />
 
           {/* Dashboard */}
-          <Route path='/' element={ user ? <Dashboard /> : <LoginError /> } />
+          <Route path='/' element={ user ? <Navigate to='projects' /> : <LoginError /> } />
 
           {/* Project Routes */}
           <Route path='projects' element={ !user ? <LoginError /> : <Projects /> } />
