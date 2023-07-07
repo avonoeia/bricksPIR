@@ -17,7 +17,7 @@ export default function Equipments() {
                 <div className="container">
                     <div className="blue-label">Equipments</div>
 
-                    Dog
+                    Equipments page
 
                 </div>
             </main>

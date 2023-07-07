@@ -1,7 +1,6 @@
 const ObjectId = require("mongodb").ObjectId;
 const Report = require("../models/reportModel");
 const Project = require("../models/projectModel");
-const Project = require("../models/projectModel");
 const Equipments = require("../models/equipmentsModel");
 
 // Get Equipments
@@ -29,7 +28,7 @@ async function getEquipment(req, res) {
 
     if (position === "admin") {
         const equipment = await Equipments.findOne({ _id: equipment_id });
-        return res.status(200).json({ equipment_details: { ...equipment } });
+        return res.status(200).json({ equipment_details: { ...equipment._doc } });
     }
 
     return res.status(403).send("Forbidden");

@@ -1,5 +1,5 @@
 const express = require('express')
-const { getEquipments, getEquipment, createEquipment, transferEquipment }= require('../controllers/equipemtsController')
+const { getEquipments, getEquipment, createEquipment, transferEquipment }= require('../controllers/equipmentsController')
 const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()

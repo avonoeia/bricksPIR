@@ -27,7 +27,7 @@ const ContentToPrint = forwardRef((props, ref) => {
 
             <div className="table">
                 <div className="section">
-                    <div className="section-header">PROJECT</div>
+                    <div className="section-header rotate">PROJECT</div>
                     <div className="section-body">
                         <div className="row">
                             <div className="th">Name of work</div>

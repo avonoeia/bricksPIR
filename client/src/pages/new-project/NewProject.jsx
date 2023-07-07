@@ -157,7 +157,8 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                                     activity: "",
                                     unit: "",
                                     total_planned: "",
-                                    total_achieved: 0
+                                    total_achieved: 0,
+                                    history: []
                                 })
                             }
                         }}
