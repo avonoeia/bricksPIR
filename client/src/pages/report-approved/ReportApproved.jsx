@@ -223,6 +223,9 @@ export default function ReportApproved() {
 
             if (response.ok) {
                 response = await response.json()
+                if (response.report_details.status !== "approved") {
+                    window.location.href = "/reports"
+                }
                 setReportData(response.report_details._doc)
             }
         }
