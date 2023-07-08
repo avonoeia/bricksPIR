@@ -45,7 +45,7 @@ function PendingReportsContainer() {
                                 <p style={{"margin": "0px 0px 5px 0px"}}><strong>Name of work:</strong> {report.project_name}</p>
                                 <p style={{"margin": "0px 0px 5px 0px"}}><strong>Project ID:</strong> {report.project_id}</p>
                                 <p style={{"margin": "0px 0px 5px 0px"}}><strong>Duration:</strong> {report.duration[0]} to {report.duration[1]}</p>
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Created by:</strong> {report.created[0]} at {report.created[1].split("T")[0]} </p>
+                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Created by:</strong> {report.created[0]} on {report.created[1].split("T")[0]} </p>
                             </div>
                             <div className="general-card-button-container">
                                 <Link to={`/reports/${report._id}`}>
@@ -103,7 +103,7 @@ function PreviousReportsContainer() {
                             <p style={{"margin": "0px 0px 5px 0px"}}><strong>Name of work:</strong> {report.project_name}</p>
                                 <p style={{"margin": "0px 0px 5px 0px"}}><strong>Report ID:</strong> {report._id}</p>
                                 <p style={{"margin": "0px 0px 5px 0px"}}><strong>Duration:</strong> {report.duration[0]} to {report.duration[1]}</p>
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Created by:</strong> {report.created[0]} at {report.created[1].split("T")[0]} <strong>Submitted:</strong> {report.updatedAt.split("T")[0]} </p>
+                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Created by:</strong> {report.created[0]} on {report.created[1].split("T")[0]} <strong>Submitted:</strong> {report.updatedAt.split("T")[0]} </p>
                             </div>
                             <div className="general-card-button-container">
                                 <Link to={`/reports/approved/${report._id}`}>

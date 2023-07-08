@@ -211,6 +211,7 @@ export default function ReportApproved() {
     const { user } = useAuthContext()
     const [reportData, setReportData] = useState("")
     const printRef = useRef(null)
+    console.log(reportData)
 
     useEffect(() => {
         const arr = window.location.href.split('/')
@@ -223,7 +224,7 @@ export default function ReportApproved() {
 
             if (response.ok) {
                 response = await response.json()
-                if (response.report_details.status !== "approved") {
+                if (response.report_details._doc.status !== "approved") {
                     window.location.href = "/reports"
                 }
                 setReportData(response.report_details._doc)
