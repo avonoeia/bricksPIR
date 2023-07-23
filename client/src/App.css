@@ -150,7 +150,7 @@ label, .text-label {
   margin: 5px 0px
 }
 
-input, .input-field {
+input, textarea, .input-field {
   padding: 7px 5px;
   width: 390px;
   font-family: 'Roboto';

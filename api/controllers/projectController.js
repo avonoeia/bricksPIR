@@ -229,4 +229,31 @@ async function grantAccess(req, res) {
     }
 }
 
-module.exports = { getProjects, getOneProject, createProject, addActivity, addMaterial, addStock, addEquipment, grantAccess }
+async function getProjectNameAndId(req, res) {
+    const { position, access } = req.user
+
+    console.log("Hit registered at getProjectsNameAndIdController")
+    
+    let projects = []
+    if (position == "admin") {
+        projects = [...await Project.find()]
+    } else {
+        for (let i = 0; i < access.length; i++) {
+            const project = await Project.findOne({ _id: access[i] })
+            if (project) {
+                projects.push({
+                    project_name: project.project_name,
+                    _id: project._id,
+                    contractor: project.contractor,
+                    employer: project.employer,
+                    contract_start_date: project.contract_start_date,
+                    contract_completion_date: project.contract_completion_date
+                })
+            }
+        }
+    }
+
+    return res.status(200).json({ projects_list: [...projects].reverse() })
+}
+
+module.exports = { getProjects, getOneProject, createProject, addActivity, addMaterial, addStock, addEquipment, grantAccess, getProjectNameAndId }

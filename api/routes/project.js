@@ -1,6 +1,6 @@
 const express = require('express')
 // const { createProject, createWorkFieldInProject, updateWorkFieldTarget } = require('../controllers/projectController')
-const { getProjects, getOneProject, createProject, addActivity, addMaterial, addStock, addEquipment, grantAccess } = require('../controllers/projectController')
+const { getProjects, getOneProject, createProject, addActivity, addMaterial, addStock, addEquipment, grantAccess, getProjectNameAndId } = require('../controllers/projectController')
 const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
@@ -10,6 +10,8 @@ router.use(requireAuth)
 
 // Get projects
 router.get('/', getProjects)
+
+router.get('/get-projects-name-and-id', getProjectNameAndId)
 
 // Get a specific project
 router.get('/details/:project_id', getOneProject)

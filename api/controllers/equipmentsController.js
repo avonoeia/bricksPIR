@@ -47,7 +47,7 @@ async function createEquipment(req, res) {
     }
 
     if (current_location.project_name == "unassigned") {
-        const newEquipment = await Equipments.create({ ...req.body });
+        const newEquipment = await Equipments.create({ ...req.body, transferred_on: new Date() });
         return res
             .status(200)
             .json({
@@ -74,7 +74,7 @@ async function createEquipment(req, res) {
                 { equipments: project.equipments },
                 { new: true }
             );
-            const newEquipment = await Equipments.create({ ...req.body });
+            const newEquipment = await Equipments.create({ ...req.body, transferred_on: new Date() });
 
             return res
                 .status(200)
@@ -120,7 +120,7 @@ async function transferEquipment(req, res) {
     }
 
     project.equipments.filter((e) => e.id !== equipment.id);
-    equipment.history.append({
+    equipment.history.push({
         location: equipment.current_location.project_name,
         transferred_on: equipment.transferred_on,
     });
