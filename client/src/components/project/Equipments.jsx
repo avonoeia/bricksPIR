@@ -142,7 +142,7 @@ export default function Equipments({ project, setProject }) {
                     )
                 }
 
-                {
+                {/* {
                     user.position !== "" ? (
                         <>
                             <hr className="black-separator" style={{"margin": "40px 0px"}} />
@@ -182,7 +182,7 @@ export default function Equipments({ project, setProject }) {
                             </div>
                         </>
                     ) : ""
-                }
+                } */}
             </div>
         </div>
     )

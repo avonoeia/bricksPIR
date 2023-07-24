@@ -17,7 +17,7 @@ router.get('/details/:equipment_id', getEquipment)
 router.post('/create-equipment', createEquipment)
 
 // Transfer equipment
-router.patch('/transfer-equipment/:equipment_id', transferEquipment)
+router.patch('/transfer-equipment/', transferEquipment)
 
 
 module.exports = router

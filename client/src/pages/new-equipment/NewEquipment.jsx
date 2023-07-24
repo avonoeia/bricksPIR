@@ -96,6 +96,7 @@ function NewEquipmentContainer() {
                                     [event.target.name]: event.target.value,
                                 }));
                             }}
+                            required={true}
                         />
                     </div>
 
@@ -114,6 +115,7 @@ function NewEquipmentContainer() {
                                     [event.target.name]: event.target.value,
                                 }));
                             }}
+                            required={true}
                         />
                     </div>
 
@@ -132,6 +134,7 @@ function NewEquipmentContainer() {
                                     [event.target.name]: event.target.value,
                                 }));
                             }}
+                            
                         />
                     </div>
 
