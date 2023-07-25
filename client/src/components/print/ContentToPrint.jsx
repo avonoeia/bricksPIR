@@ -15,7 +15,8 @@ const ContentToPrint = forwardRef((props, ref) => {
                     <h1>Project Quality Plan</h1>
                     <h2>Daily Progress Report</h2>
                     <h2>
-                        {Date(props.reportData.created[1])
+                        {new Date(props.reportData.created[1])
+                            .toString()
                             .split(" ")
                             .slice(0, 4)
                             .map((data) => ` ${data}`)}
@@ -128,7 +129,8 @@ const ContentToPrint = forwardRef((props, ref) => {
                         <div className="row">
                             <div className="th">Created on</div>
                             <div className="td">
-                                {Date(props.reportData.created[1])
+                                {new Date(props.reportData.created[1])
+                                    .toString()
                                     .split(" ")
                                     .slice(0, 4)
                                     .map((data) => ` ${data}`)}
@@ -136,7 +138,8 @@ const ContentToPrint = forwardRef((props, ref) => {
 
                             <div className="th">Approved on</div>
                             <div className="td">
-                                {Date(props.reportData.updatedAt[1])
+                                {new Date(props.reportData.updatedAt.split("T")[0])
+                                    .toString()
                                     .split(" ")
                                     .slice(0, 4)
                                     .map((data) => ` ${data}`)}

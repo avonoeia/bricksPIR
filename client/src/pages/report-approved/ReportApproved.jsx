@@ -8,7 +8,6 @@ import Navbar from "../../components/navbar/Navbar"
 import ContentToPrint from "../../components/print/ContentToPrint.jsx"
 
 function ReportContent({ reportData }) {
-    console.log(reportData)
     return (
         <div className="container-main-block">
             <div className="report-box">
