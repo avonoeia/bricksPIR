@@ -97,7 +97,7 @@ function ProjectComponent() {
                                                           <br />
                                                       </React.Fragment>
                                                   ))
-                                                : "Privileged account. Unrestricted access."}
+                                                : (profile.position == "admin" ? "Privileged account. Unrestricted access." : "No access.")}
                                         </div>
                                     </div>
                                 </div>

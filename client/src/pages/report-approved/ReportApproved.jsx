@@ -49,13 +49,13 @@ function ReportContent({ reportData }) {
                 <h2 className="heading">Site</h2>
                 <div className="report-box-row">
                     <div>
-                        <strong>Weather:</strong> To be implemented
+                        <strong>Weather:</strong> {reportData.weather && reportData.weather}
                     </div>
                     <div>
                         <strong>From:</strong> {reportData.duration[0]} <strong>To:</strong> {reportData.duration[1]}
                     </div>
                     <div>
-                        <strong>Site Conditions:</strong> To be implemented
+                        <strong>Site Conditions:</strong> {reportData.site_conditions && reportData.site_conditions}
                     </div>
                 </div>
 

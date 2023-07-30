@@ -30,6 +30,7 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
     }
 
     function setData(data) {
+        console.log(data.users_list)
         setUsers([...data.users_list])
     }
 
@@ -84,7 +85,7 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                 </div>
 
                 <div className="input-field-block" style={{"width": "50%"}}>
-                    <label htmlFor="contract_start_date">Contractor Start Date</label>
+                    <label htmlFor="contract_start_date">Project Start Date</label>
                     <input type="date" name="contract_start_date" value={newProject.contract_start_date} required={true}
                         onChange={(event) => {
                             setNewProject((data) => ({
@@ -96,7 +97,7 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                 </div>
 
                 <div className="input-field-block" style={{"width": "50%"}}>
-                    <label htmlFor="contract_end_date">Contractor End Date</label>
+                    <label htmlFor="contract_end_date">Project End Date</label>
                     <input type="date" name="contract_end_date" value={newProject.contract_end_date} required={true}
                         onChange={(event) => {
                             setNewProject((data) => ({

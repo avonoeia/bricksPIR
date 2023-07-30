@@ -27,7 +27,8 @@ export default function Navbar (props) {
                         user.position === "admin" ? 
                         <>
                             <hr className="navbar-break" />
-                            <Link to='/equipments' className="link-styling"><li id="users" className={selected === "equipments" ? "selected nav-option" : "nav-option"}>Equipments</li></Link>
+                            <Link to='/equipments' className="link-styling"><li id="equipments" className={selected === "equipments" ? "selected nav-option" : "nav-option"}>Equipments</li></Link>
+                            <Link to='/users' className="link-styling"><li id="equipments" className={selected === "users" ? "selected nav-option" : "nav-option"}>Users</li></Link>
                         </>
                         :
                         ""

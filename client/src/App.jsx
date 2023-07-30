@@ -19,6 +19,7 @@ import Login from "./pages/login/Login"
 import Equipments from './pages/equipments/Equipments'
 import NewEquipment from './pages/new-equipment/NewEquipment'
 import EquipmentPage from './pages/equipment-page/EquipmentPage'
+import Users from "./pages/users/Users"
 
 function AppComponent() {
   const { user } = useAuthContext()
@@ -56,8 +57,8 @@ function AppComponent() {
           <Route path='equipments/:equipment_id' element={ user ? ( user.position == "admin" ? <EquipmentPage /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } />
 
           {/* Users */} {/* ONLY FOR ADMIN ACCOUNTS */}
-          {/* <Route path='/users' element={ user ? ( user.position == "admin" ? <Users /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } />
-          <Route path='/users/new-user' element={ user ? ( user.position == "admin" ? <Users /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } /> */}
+          <Route path='users' element={ user ? ( user.position == "admin" ? <Users /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } />
+          {/* <Route path='/users/new-user' element={ user ? ( user.position == "admin" ? <Users /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } /> */}
 
         </Routes>
       </BrowserRouter>

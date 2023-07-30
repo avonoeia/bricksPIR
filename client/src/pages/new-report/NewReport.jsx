@@ -84,6 +84,8 @@ export default function NewReport() {
     const [report, setReport] = useState({
         project_name: "",
         project_id: "",
+        weather: "",
+        site_conditions: "",
         required_approvals: [],
         approved_by: [],
         duration: ["", ""],

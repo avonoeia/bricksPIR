@@ -110,9 +110,9 @@ const ContentToPrint = forwardRef((props, ref) => {
                     <div className="section-body">
                         <div className="row">
                             <div className="th">Weather</div>
-                            <div className="td">Rainy</div>
-                            <div className="th">Conditions</div>
-                            <div className="td">Slushy</div>
+                            <div className="td">{props.reportData.weather && props.reportData.weather}</div>
+                            <div className="th">Site Conditions</div>
+                            <div className="td">{props.reportData.site_conditions && props.reportData.site_conditions}</div>
                         </div>
 
                         <div className="row">
