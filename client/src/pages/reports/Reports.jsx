@@ -67,7 +67,7 @@ function PreviousReportsContainer() {
     const [reports, setReports] = useState("")
 
     const fetchReportsData = async () => {
-        const response = await fetch('/api/reports/', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/reports/`, {
             headers: {
                 'Authorization': `Bearer ${user.token}`,
                 'Content-type': 'application/json'
