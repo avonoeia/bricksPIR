@@ -73,4 +73,17 @@ async function projectUpdator(report) {
     return project
 }
 
-module.exports = { projectUpdator }
+function cumulative_progress_in_report(project, r_activities) {
+    for (let i = 0; i < r_activities.length; i++) {   
+        const act = r_activities[i]
+        const targetIdx = project.activities.findIndex(item => item.activity == act.activity)
+        r_activities[i] = {
+            ...r_activities[i],
+            cumulative_achieved: project.activities[targetIdx].total_achieved
+        }
+    }
+
+    return r_activities
+}
+
+module.exports = { projectUpdator, cumulative_progress_in_report }

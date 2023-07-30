@@ -1,7 +1,7 @@
 const ObjectId = require("mongodb").ObjectId;
 const Report = require("../models/reportModel");
 const Project = require("../models/projectModel");
-const { projectUpdator } = require("../utility/projectUpdator");
+const { projectUpdator, cumulative_progress_in_report } = require("../utility/projectUpdator");
 const { findOneAndUpdate } = require("../models/reportModel");
 
 // Get reports
@@ -217,12 +217,12 @@ async function approveReport(req, res) {
 
     if (required_approvals.length === approved_by.length) {
         const update = await projectUpdator(report);
+        const r_activities = cumulative_progress_in_report(update, report.activities)
 
-        console.log("updated", update);
         try {
             const updatedReport = await Report.findOneAndUpdate(
                 { _id: report_id },
-                { status: "approved", approved_by: [...approved_by] },
+                { status: "approved", approved_by: [...approved_by], activities: [...r_activities] },
                 { new: true }
             );
             const updatedProject = await Project.findOneAndUpdate(

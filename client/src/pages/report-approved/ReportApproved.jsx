@@ -84,6 +84,9 @@ function ReportContent({ reportData }) {
                     <div>
                         <strong>Achieved</strong>
                     </div>
+                    <div>
+                        <strong>Cumulative</strong>
+                    </div>
                 </div>
                 {
                     reportData.activities.length > 0 ? reportData.activities.map(act => (
@@ -95,6 +98,7 @@ function ReportContent({ reportData }) {
                             <div>{act.grid_line}</div>
                             <div>{act.planned}</div>
                             <div>{act.achieved}</div>
+                            <div>{act.cumulative_achieved && act.cumulative_achieved}</div>
 
                         </div>
                     )) : "No activities"

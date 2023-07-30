@@ -178,6 +178,7 @@ const ContentToPrint = forwardRef((props, ref) => {
                                             <th>Achieved</th>
                                             <th>Level</th>
                                             <th>Grid Line</th>
+                                            <th>Cumulative</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -192,6 +193,9 @@ const ContentToPrint = forwardRef((props, ref) => {
                                                         <td>{data.level}</td>
                                                         <td>
                                                             {data.grid_line}
+                                                        </td>
+                                                        <td>
+                                                            {data.cumulative_achieved && data.cumulative_achieved}
                                                         </td>
                                                     </tr>
                                                 );
