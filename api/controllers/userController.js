@@ -70,6 +70,23 @@ async function getUserInfo(req, res) {
     }
 }
 
+// Get user details for a specific user
+async function getUserDetails(req, res) {
+    const { position } = req.user
+    const { user_id } = req.params
+
+    if (position !== "admin") {
+        return res.status(403).json({ "error": "Unauthorized" })
+    }
+
+    try {
+        const user = await User.findOne({ _id: user_id })
+        return res.status(200).json({ user_details: {...user} })
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 // Grant access to users
 async function grantAccess(req, res) {
     const { user_id, project_id } = req.body
@@ -97,4 +114,4 @@ async function grantAccess(req, res) {
     }
 }
 
-module.exports = { userSignup, userLogin, getUsers, getUserInfo, grantAccess }
+module.exports = { userSignup, userLogin, getUsers, getUserInfo, grantAccess, getUserDetails }

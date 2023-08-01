@@ -123,7 +123,7 @@ function UserContainer({ user }) {
     const [users, setUsers] = React.useState("")
 
     const fetchUsersData = async () => {
-        const response = await fetch('/api/users/', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/`, {
             headers: {'Authorization': `Bearer ${user.token}`},
         })
         return response.json()
