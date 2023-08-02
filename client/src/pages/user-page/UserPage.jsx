@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Navbar from "../../components/navbar/Navbar";
-
+import GiveAccess from "./GiveAccess";
 const queryClient = new QueryClient();
 
 function UserContainer({ user }) {
@@ -94,17 +94,26 @@ function UserContainer({ user }) {
                                 <div className="text-field">
                                     {users.access && users.access.length > 0
                                         ? users.access.map((id, index) => (
-                                            <>
-                                            {index+1}. <Link to={`/projects/${id}`}>
-                                                  {id}
-                                                  <br />
-                                              </Link>
-                                            </>
+                                              <React.Fragment key={index}>
+                                                  {index + 1}.{" "}
+                                                  <Link to={`/projects/${id}`}>
+                                                      {id}
+                                                      <br />
+                                                  </Link>
+                                              </React.Fragment>
                                           ))
-                                        : user.position == "admin" ? "Privileged account. Unrestricted access." : "No access"}
+                                        : users.position === "admin"
+                                        ? "Privileged account. Unrestricted access."
+                                        : "No access"}
                                 </div>
                             </div>
                         </div>
+
+                        <GiveAccess
+                            user={user}
+                            users={users}
+                            setUsers={setUsers}
+                        />
                     </>
                 )}
             </div>
