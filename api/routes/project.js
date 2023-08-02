@@ -1,6 +1,6 @@
 const express = require('express')
 // const { createProject, createWorkFieldInProject, updateWorkFieldTarget } = require('../controllers/projectController')
-const { getProjects, getOneProject, createProject, addActivity, addMaterial, addStock, addEquipment, grantAccess, getProjectNameAndId } = require('../controllers/projectController')
+const { getProjects, getLimitedProjectsData, getOneProject, createProject, addActivity, addMaterial, addStock, addEquipment, grantAccess, getProjectNameAndId } = require('../controllers/projectController')
 const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
@@ -10,6 +10,9 @@ router.use(requireAuth)
 
 // Get projects
 router.get('/', getProjects)
+
+// Limited data optimization
+router.get('/get-limited-projects-data', getLimitedProjectsData)
 
 router.get('/get-projects-name-and-id', getProjectNameAndId)
 

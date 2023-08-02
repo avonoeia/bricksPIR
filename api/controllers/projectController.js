@@ -23,6 +23,28 @@ async function getProjects(req, res) {
     return res.status(200).json({ projects_list: [...projects].reverse() })
 }
 
+async function getLimitedProjectsData(req, res) {
+    const { position, access } = req.user
+
+    console.log("Hit registered at getProjectsController")
+
+    const projection = 'project_name _id contractor employer contract_start_date contract_completion_date'
+    
+    let projects = []
+    if (position == "admin") {
+        projects = [...await Project.find({}, projection)]
+    } else {
+        for (let i = 0; i < access.length; i++) {
+            const project = await Project.findOne({ _id: access[i] }, projection)
+            if (project) {
+                projects.push(project)
+            }
+        }
+    }
+
+    return res.status(200).json({ projects_list: [...projects].reverse() })
+}
+
 // Get a specific project
 async function getOneProject(req, res) {
     const { position, access } = req.user
@@ -256,4 +278,4 @@ async function getProjectNameAndId(req, res) {
     return res.status(200).json({ projects_list: [...projects].reverse() })
 }
 
-module.exports = { getProjects, getOneProject, createProject, addActivity, addMaterial, addStock, addEquipment, grantAccess, getProjectNameAndId }
+module.exports = { getProjects, getLimitedProjectsData, getOneProject, createProject, addActivity, addMaterial, addStock, addEquipment, grantAccess, getProjectNameAndId }

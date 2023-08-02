@@ -12,7 +12,7 @@ function PendingReportsContainer() {
     const [reports, setReports] = useState("")
 
     const fetchReportsData = async () => {
-        const response = await fetch('/api/reports/', {
+        const response = await fetch('/api/reports/get-limited-reports', {
             headers: {'Authorization': `Bearer ${user.token}`},
         })
         return response.json()

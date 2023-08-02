@@ -23,6 +23,26 @@ async function getReports(req, res) {
     return res.status(200).json({ reports_list: [...reports].reverse() });
 }
 
+// Get limited report data
+async function getLimitedReports(req, res) {
+    const { position, access } = req.user;
+    const projection = 'project_name project_id duration created updatedAt status'
+
+    let reports = [];
+    if (position == "admin") {
+        reports = [...(await Report.find({}, projection))];
+    } else {
+        for (let i = 0; i < access.length; i++) {
+            const fetchedReports = await Report.find({ project_id: access[i] }, projection);
+            if (fetchedReports) {
+                reports = [...reports, ...fetchedReports];
+            }
+        }
+    }
+
+    return res.status(200).json({ reports_list: [...reports].reverse() });
+}
+
 async function getReport(req, res) {
     const { position, access } = req.user;
     const { report_id } = req.params;
@@ -257,4 +277,5 @@ module.exports = {
     startNewReport,
     resubmitReport,
     approveReport,
+    getLimitedReports,
 };

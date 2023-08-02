@@ -13,7 +13,7 @@ function ProjectsContainer() {
     const [projects, setProjects] = useState("")
 
     const fetchProjectsData = async () => {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/get-limited-projects-data`, {
             headers: {'Authorization': `Bearer ${user.token}`},
         })
         return response.json()

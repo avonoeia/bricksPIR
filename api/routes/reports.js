@@ -1,5 +1,5 @@
 const express = require('express')
-const { getReports, getReport, startNewReport, resubmitReport, approveReport } = require('../controllers/reportController')
+const { getReports, getLimitedReports, getReport, startNewReport, resubmitReport, approveReport } = require('../controllers/reportController')
 const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
@@ -8,6 +8,8 @@ const router = express.Router()
 router.use(requireAuth)
 
 router.get('/', getReports)
+
+router.get('/get-limited-reports', getLimitedReports)
 
 router.get('/get-report/:report_id', getReport)
 
