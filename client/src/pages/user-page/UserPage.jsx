@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Navbar from "../../components/navbar/Navbar";
 import GiveAccess from "./GiveAccess";
+import RemoveAccess from "./RemoveAccess";
 const queryClient = new QueryClient();
 
 function UserContainer({ user }) {
@@ -109,11 +110,22 @@ function UserContainer({ user }) {
                             </div>
                         </div>
 
-                        <GiveAccess
-                            user={user}
-                            users={users}
-                            setUsers={setUsers}
-                        />
+                        {
+                            users.position !== "admin" ? (
+                                <>
+                                    <GiveAccess
+                                        user={user}
+                                        users={users}
+                                        setUsers={setUsers}
+                                    />
+                                    <RemoveAccess
+                                        user={user}
+                                        users={users}
+                                        setUsers={setUsers}
+                                    />
+                                </>
+                            ) : ""
+                        }
                     </>
                 )}
             </div>

@@ -104,14 +104,43 @@ async function grantAccess(req, res) {
         filter = {_id: project_id}
         const oldProject = await Project.findOne(filter)
         const newRoles = oldProject.roles
-        newRoles[user.position].push(user_id)
+        newRoles[oldUser.position] = [
+            ...newRoles[oldUser.position],
+            `${oldUser.name} - ${user_id}`
+        ]
         const project = await Project.findOneAndUpdate(filter, { roles: newRoles }, {new: true})
-
-        res.status(200).json({message: `User ${user.name} granted access to project ${project.project_name}.`, project})
+        res.status(200).json({message: `User ${user.name} granted access to project ${project.project_name}.`, newAccess: user.access})
     } catch(err) {
         console.log(err)
         res.status(400).json({ error: err })
     }
 }
 
-module.exports = { userSignup, userLogin, getUsers, getUserInfo, grantAccess, getUserDetails }
+// Grant access to users
+async function removeAccess(req, res) {
+    const { user_id, project_id } = req.body
+    const { position } = req.user
+
+    if (position != 'admin') {
+        return res.status(401).json({ error: "Admin privileges required to remove access for users. Your request cannot be processed."})
+    }
+
+    try {
+        let filter = { _id: user_id }
+        const oldUser = await User.findOne(filter)
+        const user = await User.findOneAndUpdate(filter, { access: [...oldUser.access.filter(project => project != project_id)]}, {new: true})
+
+        filter = {_id: project_id}
+        const oldProject = await Project.findOne(filter)
+        const newRoles = oldProject.roles
+        newRoles[oldUser.position] = newRoles[oldUser.position].filter(user => user.split(" - ")[1].toString() != user_id.toString())
+        const project = await Project.findOneAndUpdate(filter, { roles: newRoles }, {new: true})
+
+        res.status(200).json({message: `User ${user.name} removed from project ${project.project_name}.`, newAccess: user.access})
+    } catch(err) {
+        console.log(err)
+        res.status(400).json({ error: err })
+    }
+}
+
+module.exports = { userSignup, userLogin, getUsers, getUserInfo, grantAccess, getUserDetails, removeAccess }

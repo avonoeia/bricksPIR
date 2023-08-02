@@ -2,41 +2,26 @@ import React, { useState } from "react"
 
 export default function GiveAccess({ user, users, setUsers }) {
     const [data, setData] = useState("");
-    const [selected, setSelected] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [removalSelected, setRemovalSelected] = useState("");
     const [message, setMessage] = useState("")
 
-    async function fetchProjects() {
-        if (data === "") {
-            setIsLoading(true);
-            await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/`, {
-                headers: { Authorization: `Bearer ${user.token}` },
-            })
-                .then((response) => response.json())
-                .then((data) =>
-                    setData(
-                        data.projects_list.filter(
-                            (project) => !users.access.includes(project._id)
-                        )
-                    )
-                );
-            setIsLoading(false);
-        }
-    }
+    React.useEffect(() => {
+        setData(users.access)
+    }, [users])
 
-    async function handleAdd(e) {
+    async function handleRemove(e) {
         e.preventDefault()
 
-        if (selected !== "" && selected !== undefined) {
+        if (removalSelected != "" && removalSelected != undefined) {
             let req_body = {
                 user_id: users._id,
-                project_id: selected
+                project_id: removalSelected
             }
-            
-            fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/access-control/add`, {
+
+            await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/access-control/remove`, {
                 method: "PATCH",
                 headers: { 
-                    "Authorization": `Bearer ${user.token}`,
+                    Authorization: `Bearer ${user.token}`,
                     "Content-Type": "application/json"
                 },
                 cache: "no-cache",
@@ -51,7 +36,7 @@ export default function GiveAccess({ user, users, setUsers }) {
                         }
                     })
                     setMessage(data.message)
-                    setSelected("")
+                    setRemovalSelected("")
                 })
         }
     }
@@ -69,7 +54,7 @@ export default function GiveAccess({ user, users, setUsers }) {
                             color: "rgb(103, 103, 240)",
                         }}
                     >
-                        Grant Access
+                        Remove Access
                     </div>
                 </div>
                 <div
@@ -80,31 +65,26 @@ export default function GiveAccess({ user, users, setUsers }) {
                         name="access"
                         className="input-field"
                         style={{ cursor: "pointer", margin: "10px" }}
-                        value={selected}
+                        value={removalSelected}
                         id="project-selection"
-                        onChange={(e) => setSelected(e.target.value)}
-                        onClick={fetchProjects}
+                        onChange={(e) => setRemovalSelected(e.target.value)}
                     >
                         <option value="">--- Select Project ---</option>
                         {
-                        
-                            isLoading ? <option disabled>"Loading..."</option> : (
-                                data && data.length > 0
-                                    ? data.map((data) => {
-                                  return (
-                                      <option key={data._id} value={data._id}>
-                                          {data.project_name}
-                                      </option>
-                                  );
-                              })
-                            : "This user cannot be added to any more projects."
-                            )
+                            data && data.length > 0
+                            ? data.map((data) => {
+                            return (
+                                <option key={data} value={data}>
+                                    {data}
+                                </option>
+                                );
+                            }) : <option disabled>No Projects.</option>
                         }
                     </select>
                 </div>
 
                 <div className="input-field-block" style={{ width: "100%" }}>
-                    <button style={{padding: "5px 10px", cursor: "pointer"}} onClick={handleAdd}>Confirm</button>
+                    <button style={{padding: "5px 10px", cursor: "pointer"}} onClick={handleRemove}>Confirm</button>
                 </div>
 
                 {
