@@ -61,6 +61,12 @@ const reportSchema = new Schema({
     },
     contract_completion_date: {
         type: Date,
+    },
+    report_rejection: {
+        type: Object,
+    },
+    resubmission: {
+        type: String,
     }
 }, {timestamps: true})
 

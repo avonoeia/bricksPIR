@@ -29,7 +29,12 @@ function ProjectPageComponent() {
     }
     
     const setData = (data) => {
-        setProject({ ...data.project_details, site_manager: data.project_details.roles.site_manager, data_entry_operator: data.project_details.roles.data_entry_operator })
+        setProject({ 
+            ...data.project_details, 
+            project_manager: data.project_details.roles.project_manager,
+            site_manager: data.project_details.roles.site_manager, 
+            data_entry_operator: data.project_details.roles.data_entry_operator 
+        })
     }
 
     const { isLoading, error, data } = useQuery({
@@ -57,6 +62,15 @@ function ProjectPageComponent() {
                                 Project Staff
                             </div>
                             <div className="container-main-block">
+                            <div className="text-field-block" style={{"width": "40%"}}>
+                                <div className="text-label">Project Manager</div>
+                                    <div className="text-field">
+                                        {
+                                            project.project_manager.map(user => user)
+                                        }
+                                    </div>
+                                </div>
+
                                 <div className="text-field-block" style={{"width": "40%"}}>
                                     <div className="text-label">Site Manager</div>
                                     <div className="text-field">

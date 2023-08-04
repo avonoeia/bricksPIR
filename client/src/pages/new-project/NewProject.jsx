@@ -21,6 +21,7 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
     const [users, setUsers] = useState("")
     const [newSiteManager, setNewSiteManager] = useState("")
     const [newDataEntryOperator, setNewDataEntryOperator] = useState("")
+    const [newProjectManager, setNewProjectManager] = useState("")
 
     const fetchUsersData = async () => {
         const response = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/`, {
@@ -30,7 +31,6 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
     }
 
     function setData(data) {
-        console.log(data.users_list)
         setUsers([...data.users_list])
     }
 
@@ -40,7 +40,7 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
         onSuccess: setData
     })
     
-
+    console.log(newActivity)
     return (
         <div className="container">
             <div className="blue-label">
@@ -196,6 +196,61 @@ function NewProjectFormContainer({ newProject, setNewProject }) {
                 </table>
 
                 <hr className="black-separator" />
+
+                <div className="input-field-block" style={{"width": "50%"}}>
+                    <label htmlFor="activity">Project Manager</label>
+                    <select 
+                        className="input-field" value={newProjectManager} 
+                        style={{"width": "95%"}}
+                        onChange={(event) => setNewProjectManager(event.target.value)} 
+                        name="project_manager" id="project_manager"
+                    >
+                        <option value="" disabled>Select User</option>
+                        { users && (
+                            users.filter(user => user.position == "project_manager").map(user => (
+                                <option key={user._id} value={`${user.name} - ${user._id}`}>{user.name} - {user._id}</option>)
+                            )
+                        )}
+                    </select>
+
+                    <div className="tiny-button" onClick={() => {
+                        if (!newProject.project_manager.find(item => item._id.toString() == newProject.split(" - ")[1])) {
+                            setNewProject(data => ({
+                                ...data,
+                                project_manager: [...data.project_manager, newProjectManager]
+                            }))
+                            setNewProjectManager("")
+                        }
+                    }}
+                >Add</div>
+
+                    <table style={{"width": "80%"}}>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID / Digital Signature</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                newProject.project_manager.length > 0 ? (
+                                    newProject.project_manager.map(user => (
+                                        <tr key={user}>
+                                            <td>{user.split(" - ")[0]}</td>
+                                            <td>{user.split(" - ")[1]}</td>
+                                            <td style={{"width": "15px"}}>
+                                                <div className="tiny-button" style={{"margin": 0, "background": "linear-gradient(88.94deg, #E81A37 0.66%, #FF495A 99.1%)", "borderRadius": "50%", "width": "15px", "height": "15px", "fontSize": "10px", "lineHeight": "15px"}} onClick={(event) => {
+                                                    const newNewProjectManager = newProject.project_manager.filter(item => item != `${user.split(" - ")[0]} - ${user.split(" - ")[1]}`)
+                                                    setNewProject(data => ({...data, project_manager: newNewProjectManager}))
+                                                }}>X</div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : <tr><td colSpan={"3"}>No user added</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
                 
                 <div className="input-field-block" style={{"width": "50%"}}>
                     <label htmlFor="activity">Site Manager</label>
@@ -336,6 +391,7 @@ export default function NewProject() {
         activities: [],
         site_manager: [],
         data_entry_operator: [],
+        project_manager: [],
     })
 
     function handleSubmit(event) {

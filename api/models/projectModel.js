@@ -8,6 +8,9 @@ const rolesSchema = new Schema({
     },
     "data_entry_operator": {
         type: Array
+    },
+    "project_manager": {
+        type: Array
     }
 }, { _id: false })
 

@@ -24,23 +24,87 @@ async function getReports(req, res) {
 }
 
 // Get limited report data
-async function getLimitedReports(req, res) {
+async function getLimitedPreviousReports(req, res) {
+    const { pageNumber } = req.params;
     const { position, access } = req.user;
+
     const projection = 'project_name project_id duration created updatedAt status'
+    const pageSize = 10;
 
     let reports = [];
     if (position == "admin") {
-        reports = [...(await Report.find({}, projection))];
+        reports = [...(
+            await Report.find({ status: "approved" }, projection)
+                .sort({ updatedAt: -1 })
+                .skip(pageSize * (pageNumber - 1))
+                .limit(pageSize)
+        )];
     } else {
         for (let i = 0; i < access.length; i++) {
-            const fetchedReports = await Report.find({ project_id: access[i] }, projection);
+            const fetchedReports = await Report.find({ project_id: access[i], status: "approved" }, projection)
+                .sort({ updatedAt: -1 })
+                .skip(pageSize * (pageNumber - 1))
+                .limit(pageSize);
+
             if (fetchedReports) {
                 reports = [...reports, ...fetchedReports];
             }
         }
     }
 
-    return res.status(200).json({ reports_list: [...reports].reverse() });
+    return res.status(200).json({ reports_list: [...reports] });
+}
+
+// Get limited report data
+async function getLimitedPendingReports(req, res) {
+    const { position, access } = req.user;
+
+    const projection = 'project_name project_id duration created updatedAt status'
+
+    let reports = [];
+    if (position == "admin") {
+        reports = [...(
+            await Report.find({ status: "pending approval" }, projection)
+                .sort({ updatedAt: -1 })
+        )];
+    } else {
+        for (let i = 0; i < access.length; i++) {
+            const fetchedReports = await Report.find({ project_id: access[i], status: "pending approval" }, projection)
+                .sort({ updatedAt: -1 })
+
+            if (fetchedReports) {
+                reports = [...reports, ...fetchedReports];
+            }
+        }
+    }
+
+    return res.status(200).json({ reports_list: [...reports] });
+}
+
+// Get limited report data
+async function getLimitedRejectedReports(req, res) {
+    const { position, access } = req.user;
+
+    const projection = 'project_name project_id duration created updatedAt status'
+
+    let reports = [];
+    if (position == "admin") {
+        reports = [...(
+            await Report.find({ status: "rejected" }, projection)
+                .sort({ updatedAt: -1 })
+        )];
+    } else {
+        for (let i = 0; i < access.length; i++) {
+            const fetchedReports = await Report.find({ project_id: access[i], status: "rejected" }, projection)
+                .sort({ updatedAt: -1 })
+
+            if (fetchedReports) {
+                reports = [...reports, ...fetchedReports];
+            }
+        }
+    }
+
+    return res.status(200).json({ reports_list: [...reports] });
 }
 
 async function getReport(req, res) {
@@ -90,6 +154,7 @@ async function startNewReport(req, res) {
     );
 
     const project = await Project.findOne({ _id: project_id });
+    console.log(project, project.roles, project.roles["project_manager"])
 
     if (!project) {
         return res.status(400).send("Unexpected Error");
@@ -109,6 +174,18 @@ async function startNewReport(req, res) {
     if (position === "site_manager") {
         if (
             !project.roles.site_manager.find(
+                (element) => element.split(" - ")[1] === _id.toString()
+            )
+        ) {
+            return res
+                .status(403)
+                .json({ error: "You do not have access to this project" });
+        }
+    }
+
+    if (position === "project_manager") {
+        if (
+            !project.roles["project_manager"].find(
                 (element) => element.split(" - ")[1] === _id.toString()
             )
         ) {
@@ -139,6 +216,52 @@ async function startNewReport(req, res) {
         console.log(err);
     }
 }
+
+// Project Manager Reject
+async function rejectReport(req, res) {
+    const { newReport } = req.body;
+    const { _id, position } = req.user;
+    const { report_id } = req.params;
+
+    if (position != "project_manager") {
+        return res.status(403).json({ error: "Unauthorized" });
+    }
+
+    if (!ObjectId.isValid(report_id.trim())) {
+        return res.status(400).json({ error: "Unexpected error" });
+    }
+
+    const report = await Report.findOne({ _id: report_id });
+
+    if (!report.required_approvals.find(elem => elem.split(" - ")[1] == _id.toString())) {
+        return res.status(403).json({ error: "Unauthorized" });
+    }
+
+    if (report.approved_by.find(elem => elem.split(" - ")[1] == _id.toString())) {
+        return res.status(400).json({ error: "You have already approved this report" });
+    }
+
+    try {
+        const updatedReport = await Report.findOneAndReplace(
+            { _id: report_id },
+            {
+                ...newReport,
+                approved_by: [],
+                status: 'rejected',
+                report_rejection: newReport.report_rejection
+            },
+            { new: true }
+        );
+
+        return res.status(200).json({
+            message: "Report data successfully entered.",
+            updatedReport,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 
 // Take report inputs
 async function resubmitReport(req, res) {
@@ -176,26 +299,41 @@ async function resubmitReport(req, res) {
         }
     }
 
-    if (report.status == "approved") {
+    if (report.status != "rejected") {
         return res
             .status(400)
-            .json({ error: "Report has already been approved." });
+            .json({ error: "Report has either already been approved or is still pending approval." });
     }
 
     try {
-        const updatedReport = await Report.findOneAndReplace(
-            { _id: report_id },
-            {
-                ...newReport,
-                approved_by: [],
-                status: "pending approval",
-            },
-            { new: true }
-        );
+        delete newReport._id
+        const resubmittedReport = await Report.create({
+            ...newReport,
+            status: "pending approval",
+            resubmission: report_id
+        })
+        
+        if (resubmittedReport) {
+            const updatedReport = await Report.findOneAndReplace(
+                { _id: report_id },
+                {
+                    ...newReport,
+                    approved_by: [],
+                    report_rejection: {
+                        ...report.report_rejection,
+                        resubmitted: resubmitReport._id,
+                    },
+                    status: "rejected resubmitted",
+                },
+                { new: true }
+            );
+        }  else {
+            return res.status(400).json({ error: "Unexpected error." });
+        }
 
         return res.status(200).json({
             message: "Report data successfully entered.",
-            updatedReport,
+            resubmittedReport,
         });
     } catch (err) {
         console.log(err);
@@ -206,6 +344,10 @@ async function resubmitReport(req, res) {
 async function approveReport(req, res) {
     const { report_id } = req.params;
     const { _id, position } = req.user;
+
+    if (position != "project_manager") {
+        return res.status(403).json({ error: "Unauthorized" });
+    }
 
     let report = "";
 
@@ -275,7 +417,10 @@ module.exports = {
     getReports,
     getReport,
     startNewReport,
+    rejectReport,
     resubmitReport,
     approveReport,
-    getLimitedReports,
+    getLimitedPreviousReports,
+    getLimitedPendingReports,
+    getLimitedRejectedReports,
 };

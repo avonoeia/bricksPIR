@@ -24,7 +24,7 @@ export default function Visitors({ report, setReport}) {
                     type="text" 
                     name="visitor-name"
                     value={visitor.name}
-                    disabled={report.status === "approved"}
+                    disabled={report.status === "approved" || report.status == "pending approval"}
                     onChange={(e) => setVisitor(data => ({
                         ...data,
                         name: e.target.value
@@ -39,7 +39,7 @@ export default function Visitors({ report, setReport}) {
                     style={{"width": "100px"}} 
                     name="organization" 
                     value={visitor.organization} 
-                    disabled={report.status === "approved"}
+                    disabled={report.status === "approved" || report.status == "pending approval"}
                     onChange={(e) => setVisitor(data => ({
                         ...data,
                         organization: e.target.value
@@ -52,6 +52,7 @@ export default function Visitors({ report, setReport}) {
                     "marginLeft": "20px",
                     "marginTop": "42px"
                 }}
+                disabled={report.status === "approved" || report.status == "pending approval"}
                 onClick={() => {
                     if (
                         report.status != "approved" &&

@@ -92,7 +92,8 @@ async function createProject(req, res) {
             contract_completion_date: req.body.contract_end_date,
             roles: {
                 site_manager: req.body.site_manager,
-                data_entry_operator: req.body.data_entry_operator
+                data_entry_operator: req.body.data_entry_operator,
+                project_manager: req.body.project_manager,
             },
             activities: req.body.activities,
             materials: [],
@@ -101,7 +102,7 @@ async function createProject(req, res) {
             labour: []
         })
         if (newProject) {
-            console.log("New project created with id:", newProject._id)
+            console.log("New project created with id:", newProject)
 
             const updator = await userAccessUpdator(newProject.roles, newProject._id.toString())
 

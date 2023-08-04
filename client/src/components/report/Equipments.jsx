@@ -1,7 +1,6 @@
 import React from "react"
 
 export default function Equipment({ report, setReport}) {
-    console.log(report.equipments)
     return (
         <div className="container">
             <div className="blue-label">
@@ -28,7 +27,7 @@ export default function Equipment({ report, setReport}) {
                                         <td>
                                             <input type="radio" 
                                                 checked={equipment.status == "working"} 
-                                                disabled={report.status === "approved"}
+                                                disabled={report.status === "approved" || report.status == "pending approval"}
                                                 className="radio-input" 
                                                 name={`${equipment.id}-status`} 
                                                 value="working"
@@ -52,7 +51,7 @@ export default function Equipment({ report, setReport}) {
                                             <input 
                                                 type="radio" 
                                                 checked={equipment.status == "non-working"}
-                                                disabled={report.status === "approved"}
+                                                disabled={report.status === "approved" || report.status == "pending approval"}
                                                 className="radio-input"
                                                 name={`${equipment.id}-status`}
                                                 value="non-working"
@@ -79,7 +78,7 @@ export default function Equipment({ report, setReport}) {
                                             <input 
                                                 type="number" 
                                                 value={equipment.status != "non-working" ? equipment.hours : 0} 
-                                                disabled={report.status === "approved" || equipment.status == "non-working"}
+                                                disabled={report.status === "approved" || report.status == "pending approval" || equipment.status == "non-working"}
                                                 onChange={(event) => {
                                                     setReport(data => {
                                                         const newData = data.equipments

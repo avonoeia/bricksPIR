@@ -7,6 +7,43 @@ import Navbar from "../../components/navbar/Navbar"
 
 const queryClient = new QueryClient()
 
+function ProjectManagers({ users, queryStatus }) {
+    return (
+        <div className="container">
+            <div className="blue-label">
+                Project Managers
+            </div>
+            <div className="container-main-block">
+                {
+                    queryStatus.isLoading ? <div style={{"textAlign": "center", "width": "100%"}}>Loading...</div> : (
+                        users && users.length > 0 ? (
+                        users.filter(user => user.position == "project_manager").map((user, index) => (
+                            <div key={user._id} className="general-card">
+                                <div className="blue-label-box">
+                                    <span>{index+1}</span>
+                                </div>
+                                <div className="general-card-main-block">
+                                    <p style={{"margin": "0px 0px 5px 0px"}}><strong>Name:</strong> {user.name}</p>
+                                    <p style={{"margin": "0px 0px 5px 0px"}}><strong>Email:</strong> {user.email}</p>
+                                    <p style={{"margin": "0px 0px 5px 0px"}}><strong>Phone:</strong> {user.phone}</p>
+                                    <p style={{"margin": "0px 0px 5px 0px"}}><strong>Position:</strong> {user.position}</p>
+                                </div>
+                                <div className="general-card-button-container">
+                                    <Link to={`/users/${user._id}`}>
+                                        <button className="small-button">
+                                            View Details
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        )) ) : <div style={{"textAlign": "center", "width": "100%"}}>No project managers found</div>
+                    )
+                }
+            </div>
+        </div>
+    )
+}
+
 function SiteManagers({ users, queryStatus }) {
     return (
         <div className="container">
@@ -140,7 +177,8 @@ function UserContainer({ user }) {
     })
 
     return (
-        <>
+        <>  
+            <ProjectManagers users={users} queryStatus={{isLoading, error, data}} />
             <SiteManagers users={users} queryStatus={{isLoading, error, data}} />
             <DataEntryOperators users={users} queryStatus={{isLoading, error, data}} />
             <Admins users={users} queryStatus={{isLoading, error, data}} />

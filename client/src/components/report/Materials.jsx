@@ -18,7 +18,7 @@ export default function Materiails({ project, report, setReport}) {
                     <select 
                         className="input-field" value={selectedMaterial.material} 
                         style={{"width": "25%"}}
-                        disabled={report.status === "approved"}
+                        disabled={report.status === "approved" || report.status == "pending approval"}
                         onChange={(event) => setSelectedMaterial(data => ({
                             ...data, 
                             material: event.target.value, 

@@ -22,7 +22,7 @@ export default function Activities({ project, report, setReport}) {
                     <select 
                         className="input-field" value={selectedActivity.activity} 
                         style={{"width": "25%"}}
-                        disabled={report.status === "approved"}
+                        disabled={report.status === "approved" || report.status === "pending approval"}
                         onChange={(event) => setSelectedActivity(data => ({
                             ...data, 
                             activity: event.target.value, 

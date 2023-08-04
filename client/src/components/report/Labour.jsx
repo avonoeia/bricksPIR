@@ -26,7 +26,7 @@ export default function Labour({ report, setReport}) {
                         type="text" 
                         name="labour-description"
                         value={labour.description}
-                        disabled={report.status === "approved"}
+                        disabled={report.status === "approved" || report.status == "pending approval"}
                         onChange={(e) => setLabour(data => ({
                             ...data,
                             description: e.target.value

@@ -44,7 +44,8 @@ function ReportPageComponent({ project, setProject, report, setReport }) {
         setProject({ 
             ...data.project,
             site_manager: data.project.roles.site_manager,
-            data_entry_operator: data.project.roles.data_entry_operator 
+            data_entry_operator: data.project.roles.data_entry_operator,
+            project_manager: data.project.roles.project_manager
         })
         setReport({ ...data.report })
         
@@ -72,16 +73,13 @@ function ReportPageComponent({ project, setProject, report, setReport }) {
                             }
                             </div>
                         </div>
-                        { project && 
-                            <>
-                                <ReportDetails project={project} report={report} setReport={setReport} status={report.status} />
-                                <Activities project={project} report={report} setReport={setReport} />
-                                <Materials project={project} report={report} setReport={setReport} />
-                                <Equipments project={project} report={report} setReport={setReport} />
-                                <Labour report={report} setReport={setReport} />
-                                <Visitors report={report} setReport={setReport} />
-                            </>
-                        }
+                        
+                        <ReportDetails project={project} report={report} setReport={setReport} status={report.status} />
+                        <Activities project={project} report={report} setReport={setReport} />
+                        <Materials project={project} report={report} setReport={setReport} />
+                        <Equipments project={project} report={report} setReport={setReport} />
+                        <Labour report={report} setReport={setReport} />
+                        <Visitors report={report} setReport={setReport} />
                     </>
                 )
             }
@@ -93,6 +91,7 @@ export default function ReportPage() {
     const { user } = useAuthContext()
     const [report, setReport] = useState("")
     const [project, setProject] = useState("")
+    const [rejection, setRejection] = useState("")
 
     function handleApprove(e) {
         const approve = async () => {
@@ -112,14 +111,45 @@ export default function ReportPage() {
         approve()
     }
 
-    function handleResubmit(e) {
+    function handleReject() {
+        setRejection({by: user.name, reason: ""})
+    }
+
+    function handleRejection(e) {
         const arr = window.location.href.split('/')
         const report_id = arr[arr.length - 1]
 
         const reportDocument = {
-            ...report
+            ...report,
+            report_rejection: rejection,
+        }
+        
+        const resubmitRejectReport = async () => {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/reports/reject/${report_id}`, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                    'Content-type': 'application/json'
+                },
+                method: 'PATCH',
+                body: JSON.stringify({newReport: reportDocument})
+            })
+
+            if (response.ok) {
+                window.location.replace('/reports')
+            }
         }
 
+        resubmitRejectReport()
+    }
+
+    function handleResubmit() {
+        const arr = window.location.href.split('/')
+        const report_id = arr[arr.length - 1]
+
+        const reportDocument = {
+            ...report,
+        }
+        
         const resubmitReport = async () => {
             const response = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/reports/resubmit/${report_id}`, {
                 headers: {
@@ -135,9 +165,8 @@ export default function ReportPage() {
             }
         }
 
-        resubmitReport()
+        resubmitReport();
     }
-
     
     return (
         <QueryClientProvider client={queryClient}>
@@ -147,22 +176,50 @@ export default function ReportPage() {
                 <form>
                     <ReportPageComponent project={project} setProject={setProject} report={report} setReport={setReport} />
                     {
-                        report && report.status != "approved" && user.position == "site_manager" ? (
+                        report && report.status == "approved approval" && user.position == "project_manager" ? (
                             <>
                                 <h6 style={{"width": "100%", "margin": "0", "textAlign": "left"}}>* Clicking approve attaches your digital signature with this report.</h6>
-                                <h6 style={{"width": "100%", "margin": "0", "color": "red", "textAlign": "left"}}>* Should you choose to make changes and resubmit this report, all other site managers will have to re-approve this report with your changes.</h6>
+                                <h6 style={{"width": "100%", "margin": "0", "color": "red", "textAlign": "left"}}>* Should you choose to reject this report, you must mention the errors. The report will then have to resubmitted.</h6>
                             </>
                         ) : ""
                     }
                     
                     <div className="input-field-block" style={{"width": "100%", "margin": "20px auto"}}>
-                        {report && report.status != "approved" && user.position == "site_manager" ? 
+                        {report && !rejection && report.status == "pending approval" && user.position == "project_manager" ? 
                             (
                             <>
                                 <div className="small-button" style={{"lineHeight": "43px", "display": "inline-block", "margin": "0px 10px"}} onClick={handleApprove}>Approve</div>
-                                <div className="small-button" style={{"background": "linear-gradient(88.94deg, #e81a1a 0.66%, #ff4949 99.1%)", "lineHeight": "43px", "display": "inline-block", "margin": "0px 10px"}} onClick={handleResubmit}>Resubmit</div>
+                                <div className="small-button" style={{"background": "linear-gradient(88.94deg, #e81a1a 0.66%, #ff4949 99.1%)", "lineHeight": "43px", "display": "inline-block", "margin": "0px 10px"}} onClick={handleReject}>Reject</div>
                             </>
                             ) : ""
+                        }
+
+                        {
+                            report && rejection && report.status == "pending approval" && user.position == "project_manager" ? (
+                                <>
+                                    <div className="text-field-block" style={{"width": "100%"}}>
+                                        <label htmlFor="rejection">Cite reason for rejection</label>
+                                        <textarea
+                                            id="rejection"
+                                            name="reason"
+                                            cols="20"
+                                            rows="10"
+                                            value={rejection.reason}
+                                            onChange={(e) => setRejection(data => ({...data, reason: e.target.value}))}
+                                            placeholder="For example: Activity 1 is not correct. Please resubmit."
+                                        />
+                                    </div>
+                                    <div className="small-button" style={{"background": "linear-gradient(88.94deg, #e81a1a 0.66%, #ff4949 99.1%)", "lineHeight": "43px", "display": "inline-block", "margin": "0px 10px"}} onClick={handleRejection}>Confirm</div>
+                                    <div className="small-button" style={{"lineHeight": "43px", "display": "inline-block", "margin": "0px 10px"}} onClick={() => setRejection("")}>Go Back</div>
+                                </>
+                            ) : ""
+                        }
+
+                        {
+                            report && report.status == "rejected" && user.position != "admin" && user.position != "project_manager" ? (
+                                <div className="small-button" style={{"lineHeight": "43px", "display": "inline-block", "margin": "0px 10px"}} onClick={handleResubmit}>Resubmit</div>
+                            ) : 
+                            ""
                         }
                     </div>
                 </form>
