@@ -21,6 +21,7 @@ import NewEquipment from './pages/new-equipment/NewEquipment'
 import EquipmentPage from './pages/equipment-page/EquipmentPage'
 import Users from "./pages/users/Users"
 import UserPage from "./pages/user-page/UserPage"
+import NewUser from "./pages/new-user/NewUser"
 
 function AppComponent() {
   const { user } = useAuthContext()
@@ -60,6 +61,7 @@ function AppComponent() {
           {/* Users */} {/* ONLY FOR ADMIN ACCOUNTS */}
           <Route path='users' element={ user ? ( user.position == "admin" ? <Users /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } />
           <Route path='/users/:user_id' element={ user ? ( user.position == "admin" ? <UserPage /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } />
+          <Route path='/users/new-user' element={ user ? ( user.position == "admin" ? <NewUser /> : <Navigate to='/' /> ) : <Navigate to='/login' /> } />
 
         </Routes>
       </BrowserRouter>

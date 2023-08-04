@@ -58,26 +58,32 @@ function ReportPageComponent({ project, setProject, report, setReport }) {
 
     return (
         <>
-            <div className="container">
-                <div className="blue-label">
-                    Project Details
-                </div>
-                <div className="container-main-block">
-                {
-                    project &&
-                    <ProjectDetails project={project} />
-                }
-                </div>
-            </div>
-            { project && 
-                <>
-                    <ReportDetails project={project} report={report} setReport={setReport} status={report.status} />
-                    <Activities project={project} report={report} setReport={setReport} />
-                    <Materials project={project} report={report} setReport={setReport} />
-                    <Equipments project={project} report={report} setReport={setReport} />
-                    <Labour report={report} setReport={setReport} />
-                    <Visitors report={report} setReport={setReport} />
-                </>
+            {
+                isLoading ? "Loading" : (
+                    <>
+                        <div className="container">
+                            <div className="blue-label">
+                                Project Details
+                            </div>
+                            <div className="container-main-block">
+                            {
+                                project &&
+                                <ProjectDetails project={project} />
+                            }
+                            </div>
+                        </div>
+                        { project && 
+                            <>
+                                <ReportDetails project={project} report={report} setReport={setReport} status={report.status} />
+                                <Activities project={project} report={report} setReport={setReport} />
+                                <Materials project={project} report={report} setReport={setReport} />
+                                <Equipments project={project} report={report} setReport={setReport} />
+                                <Labour report={report} setReport={setReport} />
+                                <Visitors report={report} setReport={setReport} />
+                            </>
+                        }
+                    </>
+                )
             }
         </>
     )

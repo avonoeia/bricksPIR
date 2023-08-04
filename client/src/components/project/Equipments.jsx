@@ -128,7 +128,7 @@ export default function Equipments({ project, setProject }) {
                                         selectedEquipment.history.length > 0 ? (
                                             selectedEquipment.history.map(equipment => (
                                                 <tr key={equipment[0]}>
-                                                    <td><Link to={`/reports/${equipment[0]}`}>{equipment[0]}</Link></td>
+                                                    <td><Link to={`/reports/approved/${equipment[0]}`}>{equipment[0]}</Link></td>
                                                     <td>{equipment[1].split("T")[0]}</td>
                                                     <td>{equipment[2][1]}</td>
                                                     <td>{equipment[2][0]}</td>

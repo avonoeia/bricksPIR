@@ -5,8 +5,6 @@ const { userAccessUpdator } = require("../utility/userAccessUpdator")
 
 async function getProjects(req, res) {
     const { position, access } = req.user
-
-    console.log("Hit registered at getProjectsController")
     
     let projects = []
     if (position == "admin") {
@@ -25,8 +23,6 @@ async function getProjects(req, res) {
 
 async function getLimitedProjectsData(req, res) {
     const { position, access } = req.user
-
-    console.log("Hit registered at getProjectsController")
 
     const projection = 'project_name _id contractor employer contract_start_date contract_completion_date'
     

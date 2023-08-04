@@ -30,36 +30,44 @@ function ProjectsContainer() {
     })
 
     return (
-        <div className="container">
-            <div className="blue-label">
-                Projects
-            </div>
-            <div className="container-main-block">
-                {   
-                    projects &&
-                    projects.map((project, index) => (
-                        <div key={project._id} className="general-card">
-                            <div className="blue-label-box">
-                                {index+1}
-                            </div>
-                            <div className="general-card-main-block">
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Name of work:</strong> {project.project_name}</p>
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Project ID:</strong> {project._id}</p>
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Contractor:</strong> {project.contractor}   <strong style={{"marginLeft": "20px"}}>Employer:</strong> {project.employer}</p>
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Contract Start Date:</strong> {project.contract_start_date.split("T")[0]}    <strong style={{"marginLeft": "20px"}}>Contract End Date:</strong> {project.contract_completion_date.split("T")[0]}</p>
-                            </div>
-                            <div className="general-card-button-container">
-                                <Link to={`/projects/${project._id}`}>
-                                    <button className="small-button">
-                                        View Details
-                                    </button>
-                                </Link>
-                            </div>
+        <>
+        {
+            isLoading ? "Loading..." : (
+                <>
+                    <div className="container">
+                        <div className="blue-label">
+                            Projects
                         </div>
-                    ))
-                }
-            </div>
-        </div>
+                        <div className="container-main-block">
+                            {   
+                                projects &&
+                                projects.map((project, index) => (
+                                    <div key={project._id} className="general-card">
+                                        <div className="blue-label-box">
+                                            {index+1}
+                                        </div>
+                                        <div className="general-card-main-block">
+                                            <p style={{"margin": "0px 0px 5px 0px"}}><strong>Name of work:</strong> {project.project_name}</p>
+                                            <p style={{"margin": "0px 0px 5px 0px"}}><strong>Project ID:</strong> {project._id}</p>
+                                            <p style={{"margin": "0px 0px 5px 0px"}}><strong>Contractor:</strong> {project.contractor}   <strong style={{"marginLeft": "20px"}}>Employer:</strong> {project.employer}</p>
+                                            <p style={{"margin": "0px 0px 5px 0px"}}><strong>Contract Start Date:</strong> {project.contract_start_date.split("T")[0]}    <strong style={{"marginLeft": "20px"}}>Contract End Date:</strong> {project.contract_completion_date.split("T")[0]}</p>
+                                        </div>
+                                        <div className="general-card-button-container">
+                                            <Link to={`/projects/${project._id}`}>
+                                                <button className="small-button">
+                                                    View Details
+                                                </button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </>
+            )
+        }
+        </>
     )
 }
 

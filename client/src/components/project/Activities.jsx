@@ -185,7 +185,7 @@ export default function Activities({ project, setProject }) {
                                             <tr key={`${data[0]}`}>
                                                 <td>
                                                     <Link
-                                                        to={`/reports/${data[0]}`}
+                                                        to={`/reports/approved/${data[0]}`}
                                                     >
                                                         {data[0]}
                                                     </Link>
@@ -276,7 +276,7 @@ export default function Activities({ project, setProject }) {
 
                             <div
                                 className="input-field-block"
-                                style={{ width: "10%" }}
+                                style={{ width: "40%" }}
                             >
                                 <label htmlFor="unit">Total Planned</label>
                                 <input

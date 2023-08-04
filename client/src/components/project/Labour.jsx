@@ -25,7 +25,7 @@ export default function Labour({ project }) {
                                         {
                                             project.labour[key].map((lbr, idx) => (
                                                 <tr key={Math.random()}>
-                                                    {idx == 0 && <td rowSpan={`${project.labour[key].length}`}><Link to={`/reports/${key}`}>{key}</Link></td>}
+                                                    {idx == 0 && <td rowSpan={`${project.labour[key].length}`}><Link to={`/reports/approved/${key}`}>{key}</Link></td>}
                                                     <td>{lbr[0]}</td>
                                                     <td>{lbr[1]}</td>
                                                     <td>{lbr[2]}</td>

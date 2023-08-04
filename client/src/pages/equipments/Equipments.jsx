@@ -30,36 +30,44 @@ function EquipmentsContainer() {
     })
 
     return (
-        <div className="container">
-            <div className="blue-label">
-                Equipments
-            </div>
-            <div className="container-main-block">
-                {   
-                    equipments &&
-                    equipments.map((equipment, index) => (
-                        <div key={equipment._id} className="general-card">
-                            <div className="blue-label-box">
-                                {index+1}
-                            </div>
-                            <div className="general-card-main-block">
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>ID:</strong> {equipment.id}</p>
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Category:</strong> {equipment.category}</p>
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Status:</strong> {equipment.status}</p>
-                                <p style={{"margin": "0px 0px 5px 0px"}}><strong>Current Location:</strong> {equipment.current_location.project_name}</p>
-                            </div>
-                            <div className="general-card-button-container">
-                                <Link to={`/equipments/${equipment._id}`}>
-                                    <button className="small-button">
-                                        View Details
-                                    </button>
-                                </Link>
-                            </div>
+        <>
+        {
+            isLoading ? "Loading..." : (
+                <>
+                    <div className="container">
+                        <div className="blue-label">
+                            Equipments
                         </div>
-                    ))
-                }
-            </div>
-        </div>
+                        <div className="container-main-block">
+                            {   
+                                equipments &&
+                                equipments.map((equipment, index) => (
+                                    <div key={equipment._id} className="general-card">
+                                        <div className="blue-label-box">
+                                            {index+1}
+                                        </div>
+                                        <div className="general-card-main-block">
+                                            <p style={{"margin": "0px 0px 5px 0px"}}><strong>ID:</strong> {equipment.id}</p>
+                                            <p style={{"margin": "0px 0px 5px 0px"}}><strong>Category:</strong> {equipment.category}</p>
+                                            <p style={{"margin": "0px 0px 5px 0px"}}><strong>Status:</strong> {equipment.status}</p>
+                                            <p style={{"margin": "0px 0px 5px 0px"}}><strong>Current Location:</strong> {equipment.current_location.project_name}</p>
+                                        </div>
+                                        <div className="general-card-button-container">
+                                            <Link to={`/equipments/${equipment._id}`}>
+                                                <button className="small-button">
+                                                    View Details
+                                                </button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </>
+            )
+        }
+        </>
     )
 }
 

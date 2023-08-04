@@ -1,6 +1,9 @@
 const User = require('../models/userModel')
 const Project = require('../models/projectModel')
 const jwt = require('jsonwebtoken')
+const { generatePassword } = require("../utility/passwordGenerator")
+const { sendWelcomeEmail } = require("../utility/sendWelcomeEmail")
+
 
 // Utility function that returns a token
 function createToken(id) {
@@ -10,15 +13,18 @@ function createToken(id) {
 
 // Handling signup request from a new user
 async function userSignup(req, res) {
-    const { email, password, name, position, access } = req.body
-    console.log({...req.body})
+    let { email, password, phone, name, position, access } = req.body
+    password = generatePassword()
+    access = []
+    console.log(email, password, name, position, access)
 
     try {
-        const newUser = await User.signup(email, password, name, position, access) // Access array should be empty.
+        const newUser = await User.signup(email, password, phone, name, position, access) // Access array should be empty.
 
-        const token = createToken(newUser._id)
+        // Send welcome email to the user
+        await sendWelcomeEmail(email, name, password)
 
-        res.status(200).json({email, token})
+        res.status(200).json({ message: `User Signup successful. An email has been sent to ${email} with login credentials.`})
     } catch (err) {
         console.log(err)
         res.status(400).json({error: err.message})

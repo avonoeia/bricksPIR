@@ -107,6 +107,7 @@ export default function ReportDetails({ project, report, setReport, status }) {
                                     }
                                 }
                             )}
+                            disabled={report.status == "approved"}
                         >
                             <option value="Normal">Normal</option>
                             <option value="Rainy">Rainy</option>
@@ -126,6 +127,7 @@ export default function ReportDetails({ project, report, setReport, status }) {
                                     }
                                 }
                             )}
+                            disabled={report.status == "approved"}
                         >
                             <option value="Slusy">Slushy</option>
                             <option value="Dry">Dry</option>
