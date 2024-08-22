@@ -11,7 +11,7 @@ import RejectedReportsContainer from "./RejectedReportContainer";
 const queryClient = new QueryClient();
 
 export default function Reports() {
-    const {user} = useAuthContext();
+    const { user } = useAuthContext();
     const [toggle, setToggle] = useState("pending");
     const [rejectedReports, setRejectedReports] = useState("");
 
@@ -42,19 +42,36 @@ export default function Reports() {
                 <main>
                     <div className="page-route">
                         / Reports{" "}
-                        <Link to="/reports/new-report">
-                            <button
-                                style={{ marginLeft: "1rem" }}
-                                className="small-button"
-                            >
-                                New Report
-                            </button>
-                        </Link>{" "}
+                        {user.position != "project_manager" && (
+                            <Link to="/reports/new-report">
+                                <button
+                                    style={{ marginLeft: "1rem" }}
+                                    className="small-button"
+                                >
+                                    New Report
+                                </button>
+                            </Link>
+                        )}
                     </div>
                     <div
                         id="toggle-bar-container"
                         className="toggle-bar-container"
                     >
+                        {rejectedReports.length > 0 && (
+                            <button
+                                className={
+                                    toggle == "rejected" ?
+                                    "toggle-item-red selected-toggle-red"
+                                    :
+                                    "toggle-item-red animated-box" 
+                                }
+                                value="rejected"
+                                onClick={handleClick}
+                            >
+                                Rejected
+                            </button>
+                        )}
+
                         <button
                             className={
                                 toggle == "pending"
@@ -77,23 +94,15 @@ export default function Reports() {
                         >
                             Approved
                         </button>
-                        {rejectedReports && (
-                            <button
-                                className={
-                                    toggle == "approved"
-                                        ? "toggle-item selected-toggle"
-                                        : "toggle-item"
-                                }
-                                value="rejected"
-                                onClick={handleClick}
-                            >
-                                Rejected
-                            </button>
-                        )}
+                        
                     </div>
                     {toggle === "pending" && <PendingReportsContainer />}
                     {toggle === "approved" && <PreviousReportsContainer />}
-                    {toggle === "rejected" && <RejectedReportsContainer rejectedReports={rejectedReports} />}
+                    {toggle === "rejected" && (
+                        <RejectedReportsContainer
+                            rejectedReports={rejectedReports}
+                        />
+                    )}
                 </main>
             </QueryClientProvider>
         </>

@@ -15,11 +15,12 @@ export default function NewUser() {
     })
     const [message, setMessage] = React.useState("")
     const [isLoading, setIsLoading] = React.useState(false)
-    console.log(newUser)
+    console.log(isLoading)
 
     async function handleSubmit(e) {
         e.preventDefault()
         setIsLoading(true)
+        setMessage("Loading...")
         await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/signup`, {
             method: "POST",
             headers: {
@@ -117,7 +118,7 @@ export default function NewUser() {
                         </div>
 
                         
-                        <button disabled={isLoading} className="small-button" style={{"margin": "10px auto", display: "block"}}>Create</button>
+                        {!isLoading && <button disabled={isLoading} className="small-button" style={{"margin": "10px auto", display: "block"}}>Create</button>}
                         {
                             message && <div className="message" style={{ margin: "15px auto", "display": "block", width: "100%" }}>{message}</div>
                         }

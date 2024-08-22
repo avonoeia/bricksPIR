@@ -185,7 +185,7 @@ export default function Activities({ project, report, setReport}) {
                                             planned: "",
                                             achieved: "",
                                             level: "",
-                                            grid_line: ""
+                                            grid_line: ["", "", "", ""]
                                         })
                                     }
                             }}>Add</div>

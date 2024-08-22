@@ -16,10 +16,9 @@ async function userSignup(req, res) {
     let { email, password, phone, name, position, access } = req.body
     password = generatePassword()
     access = []
-    console.log(email, password, name, position, access)
 
     try {
-        const newUser = await User.signup(email, password, phone, name, position, access) // Access array should be empty.
+        const newUser = await User.signup(email, password, name, position, access, phone) // Access array should be empty.
 
         // Send welcome email to the user
         await sendWelcomeEmail(email, name, password)

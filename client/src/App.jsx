@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useAuthContext } from './hooks/useAuthContext'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { AuthContextProvider } from './context/AuthContext'
@@ -13,7 +13,7 @@ import NewReport from "./pages/new-report/NewReport"
 import ReportPage from "./pages/report-page/ReportPage"
 import ReportApproved from "./pages/report-approved/ReportApproved"
 import Profile from "./pages/profile-page/profilePage"
-import Dashboard from "./pages/dashboard/Dashboard"
+// import Dashboard from "./pages/dashboard/Dashboard"
 import LoginError from "./pages/login-error/LoginError"
 import Login from "./pages/login/Login"
 import Equipments from './pages/equipments/Equipments'
@@ -30,7 +30,7 @@ function AppComponent() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-
+        
           {/* Login Route */}
           <Route path='login' element={ !user ? <Login /> : <Navigate to='/' /> } />
 

@@ -16,8 +16,8 @@ function ProjectManagers({ users, queryStatus }) {
             <div className="container-main-block">
                 {
                     queryStatus.isLoading ? <div style={{"textAlign": "center", "width": "100%"}}>Loading...</div> : (
-                        users && users.length > 0 ? (
-                        users.filter(user => user.position == "project_manager").map((user, index) => (
+                        users.length > 0 ? (
+                        users.map((user, index) => (
                             <div key={user._id} className="general-card">
                                 <div className="blue-label-box">
                                     <span>{index+1}</span>
@@ -53,8 +53,8 @@ function SiteManagers({ users, queryStatus }) {
             <div className="container-main-block">
                 {
                     queryStatus.isLoading ? <div style={{"textAlign": "center", "width": "100%"}}>Loading...</div> : (
-                        users && users.length > 0 ? (
-                        users.filter(user => user.position == "site_manager").map((user, index) => (
+                        users.length > 0 ? (
+                        users.map((user, index) => (
                             <div key={user._id} className="general-card">
                                 <div className="blue-label-box">
                                     <span>{index+1}</span>
@@ -90,8 +90,8 @@ function DataEntryOperators({ users, queryStatus }) {
             <div className="container-main-block">
                 {
                     queryStatus.isLoading ? <div style={{"textAlign": "center", "width": "100%"}}>Loading...</div> : (
-                        users && users.length > 0 ? (
-                        users.filter(user => user.position == "data_entry_operator").map((user, index) => (
+                        users.length > 0 ? (
+                        users.map((user, index) => (
                             <div key={user._id} className="general-card">
                                 <div className="blue-label-box">
                                     <span>{index+1}</span>
@@ -110,7 +110,7 @@ function DataEntryOperators({ users, queryStatus }) {
                                     </Link>
                                 </div>
                             </div>
-                        )) ) : <div style={{"textAlign": "center", "width": "100%"}}>No site managers found</div>
+                        )) ) : <div style={{"textAlign": "center", "width": "100%"}}>No data entry operators found</div>
                     )
                 }
             </div>
@@ -119,6 +119,7 @@ function DataEntryOperators({ users, queryStatus }) {
 }
 
 function Admins({ users, queryStatus }) {
+    
     return (
         <div className="container">
             <div className="blue-label">
@@ -127,8 +128,8 @@ function Admins({ users, queryStatus }) {
             <div className="container-main-block">
                 {
                     queryStatus.isLoading ? <div style={{"textAlign": "center", "width": "100%"}}>Loading...</div> : (
-                        users && users.length > 0 ? (
-                        users.filter(user => user.position == "admin").map((user, index) => (
+                        users.length > 0 ? (
+                        users.map((user, index) => (
                             <div key={user._id} className="general-card">
                                 <div className="blue-label-box">
                                     <span>{index+1}</span>
@@ -147,7 +148,7 @@ function Admins({ users, queryStatus }) {
                                     </Link>
                                 </div>
                             </div>
-                        )) ) : <div style={{"textAlign": "center", "width": "100%"}}>No site managers found</div>
+                        )) ) : <div style={{"textAlign": "center", "width": "100%"}}>No admins found</div>
                     )
                 }
             </div>
@@ -178,10 +179,16 @@ function UserContainer({ user }) {
 
     return (
         <>  
-            <ProjectManagers users={users} queryStatus={{isLoading, error, data}} />
-            <SiteManagers users={users} queryStatus={{isLoading, error, data}} />
-            <DataEntryOperators users={users} queryStatus={{isLoading, error, data}} />
-            <Admins users={users} queryStatus={{isLoading, error, data}} />
+            {
+                users && (
+                    <>
+                        <ProjectManagers users={users.filter(user => user.position == "project_manager")} queryStatus={{isLoading, error, data}} />
+                        <SiteManagers users={users.filter(user => user.position == "site_manager")} queryStatus={{isLoading, error, data}} />
+                        <DataEntryOperators users={users.filter(user => user.position == "data_entry_operator")} queryStatus={{isLoading, error, data}} />
+                        <Admins users={users.filter(user => user.position == "admin")} queryStatus={{isLoading, error, data}} />
+                    </>
+                )
+            }
         </>
     )
 }

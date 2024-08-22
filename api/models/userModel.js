@@ -31,8 +31,8 @@ const userSchema = new Schema({
     }
 })
 
-userSchema.statics.signup = async function (email, password, name, position, access) {
-
+userSchema.statics.signup = async function (email, password, name, position, access, phone) {
+    console.log("Statics", email, password, name, position, access)
     if (!email || !password) {
         throw Error('All fields are required.')
     }
@@ -54,7 +54,7 @@ userSchema.statics.signup = async function (email, password, name, position, acc
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash, name, position, access })
+    const user = await this.create({ email, password: hash, name, position, access, phone })
     return user
 }
 

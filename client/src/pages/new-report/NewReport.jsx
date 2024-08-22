@@ -152,6 +152,7 @@ export default function NewReport() {
 
         const reportDocument = {
             ...report,
+            required_approvals: [...project.roles.project_manager]
         };
 
         const submitReport = async () => {

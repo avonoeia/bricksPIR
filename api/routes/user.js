@@ -4,7 +4,6 @@ const requireAuth = require('../middleware/requireAuth')
 const { userSignup, userLogin, getUsers, getUserInfo, getUserDetails, grantAccess, removeAccess } = require('../controllers/userController')
 
 router.post('/login', userLogin)
-
 router.use(requireAuth)
 router.post('/signup', userSignup)
 

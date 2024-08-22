@@ -277,3 +277,60 @@ table > tr > th {
         background-color:rgb(71, 71, 255);
         color: white;
     }
+
+    .toggle-item-red {
+        padding: 10px 20px;
+        margin-right: 2px;
+        border: 1px solid red;
+        color: red;
+        background-color: white;
+        font-family: 'Roboto';
+        font-size: 1rem;
+    }
+    .toggle-item-red:hover {
+        cursor: pointer;
+        background-color: red;
+        color: white;
+    }
+    .selected-toggle-red {
+        background-color:red;
+        color: white;
+    }
+
+    .animated-box {
+        border: 1px solid transparent; /* Initial border */
+        transition: all 0.3s ease; /* Transition for smooth animation */
+        animation: glowBorder 2s infinite, jiggleVertical 2s infinite;
+        /* Two animations:
+            1. glowBorder: Red border glow animation.
+            2. shakeBox: Box shake animation.
+        */
+    }
+
+    @keyframes glowBorder {
+    0% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: red;
+        box-shadow: 0 0 10px red; /* Optional: Add a shadow effect */
+    }
+    100% {
+        border-color: transparent;
+    }
+    }
+    
+    @keyframes jiggleVertical {
+        0% {
+          transform: translateY(0);
+        }
+        10% {
+          transform: translateY(-4px);
+        }
+        20% {
+          transform: translateY(6px);
+        }
+        30%, 100% {
+          transform: translateY(0);
+        }
+    }

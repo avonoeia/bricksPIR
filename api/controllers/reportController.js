@@ -42,12 +42,12 @@ async function getLimitedPreviousReports(req, res) {
     } else {
         for (let i = 0; i < access.length; i++) {
             const fetchedReports = await Report.find({ project_id: access[i], status: "approved" }, projection)
-                .sort({ updatedAt: -1 })
+                .sort({ createdAt: -1 })
                 .skip(pageSize * (pageNumber - 1))
                 .limit(pageSize);
 
             if (fetchedReports) {
-                reports = [...reports, ...fetchedReports];
+                reports = [...fetchedReports, ...reports ];
             }
         }
     }
